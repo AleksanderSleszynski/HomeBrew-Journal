@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_beer_name_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Udacity nanodegree"/>
+
+
+        <TextView
+            android:id="@+id/item_beer_style_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="American IPA"/>
+
+
+        <TextView
+            android:id="@+id/item_beer_progress_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fermentation - 2 days"/>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/list_image_beer"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"/>
+
+</LinearLayout>
