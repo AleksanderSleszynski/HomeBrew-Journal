@@ -1,5 +1,6 @@
 package com.example.julian.homebrewjournal;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter = new MyAdapter(null); //
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
+                .color(Color.GRAY)
+                .size(1)
+//                .marginResId(R.dimen.activity_horizontal_margin)
+                .build());
+        // https://github.com/yqritc/RecyclerView-FlexibleDivider
     }
 
     @Override
