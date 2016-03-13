@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(null); //
+        mAdapter = new BeerAdapter(null); //
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
