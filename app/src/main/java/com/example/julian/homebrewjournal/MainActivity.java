@@ -14,13 +14,16 @@ import android.view.MenuItem;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<Beer> beers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         RecyclerView mRecyclerView;
-        RecyclerView.Adapter mAdapter;
-        RecyclerView.LayoutManager mLayoutManager;
+        BeerAdapter mBeerAdapter;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -39,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        beers = Beer.createBeerList(20); // To test and inflate Recycler View
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new BeerAdapter(null); //
-        mRecyclerView.setAdapter(mAdapter);
+        mBeerAdapter = new BeerAdapter(beers);
+        mRecyclerView.setAdapter(mBeerAdapter);
 
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
                 .color(Color.GRAY)

@@ -6,24 +6,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView nameTextView;
         public TextView styleTextView;
+        private Context mContext;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(Context context, View itemView){
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.item_beer_name_textView);
             styleTextView = (TextView) itemView.findViewById(R.id.item_beer_style_textView);
+            mContext = context;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(mContext, "Working Great.", Toast.LENGTH_LONG).show();
         }
     }
 
     private List<Beer> mBeer;
-
 
     public BeerAdapter(List<Beer> beers){
         mBeer = beers;
@@ -35,7 +45,7 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View beerView = inflater.inflate(R.layout.recycler_view_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(beerView);
+        ViewHolder viewHolder = new ViewHolder(context, beerView);
 
         return viewHolder;
 
