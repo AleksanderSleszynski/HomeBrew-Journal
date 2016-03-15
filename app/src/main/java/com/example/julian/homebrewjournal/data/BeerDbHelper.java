@@ -10,6 +10,7 @@ public class BeerDbHelper extends SQLiteOpenHelper{
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Beer.db";
+    private static BeerDbHelper sInstance;
 
     private static final String SQL_BEER_TABLE = "CREATE TABLE " + BeerEntry.TABLE_NAME + " (" +
             BeerEntry._ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -43,7 +44,22 @@ public class BeerDbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
+        if(oldVersion != newVersion) {
+            db.execSQL(SQL_DELETE_ENTRIES);
+            onCreate(db);
+        }
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    public static synchronized BeerDbHelper getInstance(Context context){
+        if(sInstance == null){
+            sInstance = new BeerDbHelper(context.getApplicationContext());
+        }
+        return sInstance;
     }
 }
