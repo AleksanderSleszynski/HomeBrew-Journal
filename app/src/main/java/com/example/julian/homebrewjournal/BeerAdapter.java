@@ -1,6 +1,7 @@
 package com.example.julian.homebrewjournal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             Toast.makeText(mContext, "Working Great.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(mContext, DetailActivity.class);
+            mContext.startActivity(intent);
         }
     }
 
