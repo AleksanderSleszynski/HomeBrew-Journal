@@ -1,4 +1,4 @@
-package com.example.julian.homebrewjournal;
+package com.example.julian.homebrewjournal.model;
 
 import java.util.ArrayList;
 
@@ -23,6 +23,11 @@ public class Beer {
     public Beer(String name, String style) {
         mName = name;
         mStyle = style;
+    }
+
+    public Beer() {
+        mName = "Name";
+        mStyle = "Style";
     }
 
     public String getName() {
