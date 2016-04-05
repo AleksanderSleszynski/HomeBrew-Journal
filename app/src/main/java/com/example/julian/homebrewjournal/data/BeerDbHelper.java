@@ -38,7 +38,11 @@ public class BeerDbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_BEER_TABLE);
+        try {
+            db.execSQL(SQL_BEER_TABLE);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
