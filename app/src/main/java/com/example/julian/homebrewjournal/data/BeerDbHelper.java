@@ -28,8 +28,7 @@ public class BeerDbHelper extends SQLiteOpenHelper{
             BeerEntry.COLUMN_MASHING + " TEXT, " +
             BeerEntry.COLUMN_BOILING + " TEXT, " +
             BeerEntry.COLUMN_FERMENTING + " TEXT, " +
-            BeerEntry.COLUMN_BOTTELING + " TEXT, "
-            + " )";
+            BeerEntry.COLUMN_BOTTELING + " TEXT );";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + BeerEntry.TABLE_NAME;
 
