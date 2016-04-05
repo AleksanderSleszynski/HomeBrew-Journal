@@ -1,19 +1,11 @@
 package com.example.julian.homebrewjournal;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.julian.homebrewjournal.model.Beer;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -23,38 +15,38 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RecyclerView mRecyclerView;
-        BeerAdapter mBeerAdapter;
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-
-        beers = Beer.createBeerList(20); // To test and inflate Recycler View
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        mBeerAdapter = new BeerAdapter(beers);
-        mRecyclerView.setAdapter(mBeerAdapter);
-
-        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .color(Color.GRAY)
-                .size(1)
-//                .marginResId(R.dimen.activity_horizontal_margin)
-                .build());
-        // https://github.com/yqritc/RecyclerView-FlexibleDivider
+//        RecyclerView mRecyclerView;
+//        BeerAdapter mBeerAdapter;
+//
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+//
+//        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        mRecyclerView.setHasFixedSize(true);
+//
+//        beers = Beer.createBeerList(20); // To test and inflate Recycler View
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        mBeerAdapter = new BeerAdapter(beers);
+//        mRecyclerView.setAdapter(mBeerAdapter);
+//
+//        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
+//                .color(Color.GRAY)
+//                .size(1)
+////                .marginResId(R.dimen.activity_horizontal_margin)
+//                .build());
+//        // https://github.com/yqritc/RecyclerView-FlexibleDivider
     }
 
     @Override
