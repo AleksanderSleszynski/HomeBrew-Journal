@@ -40,21 +40,21 @@ public class BeerListActivityFragment extends Fragment {
 
         recyclerView = (RecyclerView) container.findViewById(R.id.recycler_view);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) container.findViewById(R.id.fab);
+        assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 showDialog();
             }
         });
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         adapter = new BeerAdapter(getContext(), beers);
 
-        retrive();
+        retrieve();
 
         return inflater.inflate(R.layout.fragment_beer_list, container, false);
     }
@@ -71,7 +71,7 @@ public class BeerListActivityFragment extends Fragment {
         styleTxt = (EditText) dialog.findViewById(R.id.styleEditText);
 
         final Button save = (Button) dialog.findViewById(R.id.save);
-        final Button retrive = (Button) dialog.findViewById(R.id.ret);
+        final Button retrieve = (Button) dialog.findViewById(R.id.ret);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,10 +80,10 @@ public class BeerListActivityFragment extends Fragment {
             }
         });
 
-        retrive.setOnClickListener(new View.OnClickListener() {
+        retrieve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                retrive();
+                retrieve();
             }
         });
 
@@ -106,10 +106,10 @@ public class BeerListActivityFragment extends Fragment {
 
         db.closeDB();
 
-        retrive();
+        retrieve();
     }
 
-    private void retrive(){
+    private void retrieve(){
         beers.clear();
 
         BeerDbAdapter db = new BeerDbAdapter(getContext());
@@ -135,5 +135,9 @@ public class BeerListActivityFragment extends Fragment {
         db.closeDB();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        retrieve();
+    }
 }

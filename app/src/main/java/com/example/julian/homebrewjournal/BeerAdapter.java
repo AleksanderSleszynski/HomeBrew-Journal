@@ -1,6 +1,7 @@
 package com.example.julian.homebrewjournal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,14 +36,27 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerHolder> {
 
     @Override
     public void onBindViewHolder(BeerHolder holder, int position) {
-        Beer beer = mBeer.get(position);
+        final Beer beer = mBeer.get(position);
 
         TextView nameTextView = holder.nameTextView;
         nameTextView.setText(beer.getName());
 
 
-        TextView setTextView = holder.nameTextView;
-        setTextView.setText(beer.getStyle());
+        TextView styleTextView = holder.styleTextView;
+        styleTextView.setText(beer.getStyle());
+
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent = new Intent(mContext, DetailActivity.class);
+
+                intent.putExtra("NAME",  beer.getName());
+                intent.putExtra("STYLE", beer.getStyle());
+                intent.putExtra("ID",    beer.getId());
+
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

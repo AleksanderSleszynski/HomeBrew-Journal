@@ -13,6 +13,7 @@ public class BeerHolder extends RecyclerView.ViewHolder implements View.OnClickL
     public TextView nameTextView;
     public TextView styleTextView;
     private Context mContext;
+    ItemClickListener itemClickListener;
 
     public BeerHolder (Context context, View itemView){
         super(itemView);
@@ -30,4 +31,7 @@ public class BeerHolder extends RecyclerView.ViewHolder implements View.OnClickL
         mContext.startActivity(intent);
     }
 
+    public void setItemClickListener(ItemClickListener ic){
+        itemClickListener = ic;
+    }
 }

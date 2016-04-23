@@ -59,4 +59,30 @@ public class BeerDbAdapter {
         return db.query(BeerEntry.TABLE_NAME, columns, null, null, null, null, null);
     }
 
+    public long update(int id, String name, String style){
+        try{
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(BeerEntry.COLUMN_BEER_NAME, name);
+            contentValues.put(BeerEntry.COLUMN_BEER_STYLE, style);
+
+            return db.update(BeerEntry.TABLE_NAME, contentValues, BeerEntry.COLUMN_BEER_ID + " =?",
+                    new String[]{String.valueOf(id)});
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public long delete (int id){
+        try{
+            return db.delete(BeerEntry.TABLE_NAME, BeerEntry.COLUMN_BEER_ID + " =?",
+                    new String[]{String.valueOf(id)});
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 }

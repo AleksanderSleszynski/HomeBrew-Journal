@@ -22,6 +22,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Beer Name"/>
@@ -33,10 +34,24 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/styleEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Beer Style"/>
 
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/updateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
 
 </LinearLayout>
