@@ -1,4 +1,4 @@
-package com.example.julian.homebrewjournal;
+package com.example.julian.homebrewjournal.ui.beerList;
 
 import android.app.Dialog;
 import android.database.Cursor;
@@ -18,6 +18,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.julian.homebrewjournal.BeerAdapter;
+import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.data.BeerDbAdapter;
 import com.example.julian.homebrewjournal.model.Beer;
 
