@@ -9,7 +9,7 @@ public class BeerContract {
 
     public static abstract class BeerEntry implements BaseColumns{
         public static final String TABLE_NAME = "beer";
-        public static final String COLUMN_BEER_ID = "beerid";
+        public static final String COLUMN_BEER_ID = "id";
         public static final String COLUMN_BEER_NAME = "name";
         public static final String COLUMN_BEER_STYLE = "style";
         public static final String COLUMN_BEER_OG = "og";

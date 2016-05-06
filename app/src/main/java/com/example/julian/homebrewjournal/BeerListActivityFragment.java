@@ -116,10 +116,11 @@ public class BeerListActivityFragment extends Fragment {
     }
 
     private void retrieve(){
-        beers.clear();
 
         BeerDbAdapter db = new BeerDbAdapter(getContext());
         db.openDB();
+
+        beers.clear();
 
         Cursor cursor = db.getBeerList();
 
@@ -144,6 +145,6 @@ public class BeerListActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        retrieve();
+        retrieve();
     }
 }

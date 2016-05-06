@@ -1,15 +1,13 @@
 package com.example.julian.homebrewjournal.model;
 
 public class Beer {
-    private int mId;
     private String mName;
     private String mStyle;
+    private double FG;
+    private double OG;
+    private double beerVolume;
+    private double boilVolume;
 
-//    private double FG;
-//    private double OG;
-//    private int id;
-//    private double beerVolume;
-//    private double boilVolume;
 //    private String hops;
 //    private String malts;
 //    private String other;
@@ -18,20 +16,15 @@ public class Beer {
 //    private String fermenting;
 //    private String botteling;
 
+    public Beer() {}
 
-    public Beer(int id, String name, String style) {
-        mId = id;
-        mName = name;
-        mStyle = style;
-    }
-
-    public Beer() {
-        mName = "Name";
-        mStyle = "Style";
-    }
-
-    public int getId() {
-        return mId;
+    public Beer(String mName, String mStyle, double FG, double OG, double beerVolume, double boilVolume) {
+        this.mName = mName;
+        this.mStyle = mStyle;
+        this.FG = FG;
+        this.OG = OG;
+        this.beerVolume = beerVolume;
+        this.boilVolume = boilVolume;
     }
 
     public String getName() {
@@ -42,30 +35,19 @@ public class Beer {
         return mStyle;
     }
 
-    public void setId(int mId) {
-        this.mId = mId;
+    public double getFG() {
+        return FG;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
+    public double getOG() {
+        return OG;
     }
 
-    public void setStyle(String mStyle) {
-        this.mStyle = mStyle;
+    public double getBeerVolume() {
+        return beerVolume;
     }
 
-    // This is snippet i need to check what it will exactly do in longer term.
-
-    private static int lastBeerId = 0;
-
-//
-//    public static ArrayList<Beer> createBeerList(int numBeer){
-//        ArrayList<Beer> beers = new ArrayList<Beer>();
-//
-//        for(int i = 1; i <= numBeer; i++){
-//            beers.add(new Beer("Beer" + ++lastBeerId, "" + i));
-//        }
-//        return beers;
-//    }
-
+    public double getBoilVolume() {
+        return boilVolume;
+    }
 }
