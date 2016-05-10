@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="basic_info_detail_textView">Basic Info</string>
     <string name="title_activity_beer_list">BeerListActivity</string>
+
+    <!-- Menu Strings -->
+    <string name="action_logout">Logout</string>
+
 </resources>

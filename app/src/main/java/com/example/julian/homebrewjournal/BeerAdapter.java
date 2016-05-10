@@ -1,7 +1,6 @@
 package com.example.julian.homebrewjournal;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,18 +45,6 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerHolder> {
         holder.nameTextView.setText(mBeer.get(position).getName());
         holder.styleTextView.setText(mBeer.get(position).getStyle());
 
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Intent intent = new Intent(mContext, DetailActivity.class);
-
-                intent.putExtra("NAME",  mBeer.get(position).getName());
-                intent.putExtra("STYLE", mBeer.get(position).getStyle());
-                intent.putExtra("ID",    mBeer.get(position).getId());
-
-                mContext.startActivity(intent);
-            }
-        });
 
     }
 
