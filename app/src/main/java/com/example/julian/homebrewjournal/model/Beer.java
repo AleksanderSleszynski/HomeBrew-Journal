@@ -18,6 +18,15 @@ public class Beer {
 
     public Beer() {}
 
+    public Beer(String mName) {
+        this.mName = mName;
+        mStyle = "IPA";
+        FG = 1;
+        OG = 1;
+        beerVolume = 20;
+        boilVolume = 25;
+    }
+
     public Beer(String mName, String mStyle, double FG, double OG, double beerVolume, double boilVolume) {
         this.mName = mName;
         this.mStyle = mStyle;

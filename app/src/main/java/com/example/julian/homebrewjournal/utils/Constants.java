@@ -16,6 +16,7 @@ public class Constants {
      * Constants for Firebase object properties
      */
     public static final String FIREBASE_PROPERTY_BEER_NAME = "beerName";
+    public static final String FIREBASE_PROPERTY_TIMESTAMP = "timestamp";
 
 
     /**
