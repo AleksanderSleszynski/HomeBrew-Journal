@@ -7,4 +7,23 @@
     <!-- Menu Strings -->
     <string name="action_logout">Logout</string>
 
+
+    <string name="test">test</string>
+    <string name="title_activity_new_beer">NewBeerActivity</string>
+
+    <!--NewBeerActivity Hints-->
+    <string name="hint_beer_name">Beer Name</string>
+    <string name="hint_beer_style">Beer style</string>
+    <string name="hint_beer_FG">Final Gravity</string>
+    <string name="hint_beer_OG">Original Gravity</string>
+    <string name="hint_beer_volume">Beer Volume</string>
+    <string name="hint_beer_boil_volume">Boil Volume</string>
+
+    <string name="text_view_basic_information">Basic Information</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="hint_password">password</string>
+    <string name="hint_email">email</string>
+
 </resources>

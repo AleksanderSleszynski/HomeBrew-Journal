@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    tools:context=".ui.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:textColorPrimary="@android:color/white"/>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/app_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:textColorPrimary="@android:color/white"/>-->
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.example.julian.homebrewjournal.ui.beerList.BeerListActivityFragment"
+        android:name="com.example.julian.homebrewjournal.ui.beerList.BeerListFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         tools:layout="@layout/fragment_beer_list"
         tools:context=".ui.MainActivity"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_submit_beer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:onClick="showNewBeerActivity"
+        android:src="@drawable/ic_add_24dp"
+        app:rippleColor="@android:color/white" />
+
+</RelativeLayout>
 
