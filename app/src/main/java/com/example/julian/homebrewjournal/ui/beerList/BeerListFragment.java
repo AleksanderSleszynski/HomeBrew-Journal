@@ -1,19 +1,23 @@
 package com.example.julian.homebrewjournal.ui.beerList;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
+import com.example.julian.homebrewjournal.DetailActivity;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.Beer;
-
-import java.util.ArrayList;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -22,73 +26,83 @@ public class BeerListFragment extends Fragment {
 
     public static final String TAG = "BeerListFragment";
 
-    private BeerListAdapter mBeerListAdapter;
-    private RecyclerView recyclerView;
-//    private FirebaseDatabase beerListRef;
+    private DatabaseReference mDatabase;
 
-    ArrayList<Beer> beers = new ArrayList<>();
-
-    private ListView mListView;
-    private TextView mNameTextView, mStyleTextView;
+    private FirebaseRecyclerAdapter<Beer, BeerViewHolder> mAdapter;
+    private RecyclerView mRecycler;
+    private LinearLayoutManager mManager;
 
 
     public BeerListFragment() {
-        /* Required empty public constructor */
+        // Required empty public constructor
     }
 
-    /**
-     * Create fragment and pass bundle with data as it's arguments
-     * Right now there are not arguments...but eventually there will be.
-     */
-    public static BeerListFragment newInstance(){
-        BeerListFragment fragment = new BeerListFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_beer_list, container, false);
-        initializeScreen(rootView);
 
-        /* Create Firebase references */
-//        beerListRef = new FirebaseDatabase(Constants.FIREBASE_URL_BEER_LIST);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-//        /**
-//         * Create the adapater, giving it the activity, model class, layout for each row in
-//         * the list and finnally, a reference to the Firebase location with the list data
-//         */
-//        mBeerListAdapter = new BeerListAdapter(getActivity(), Beer.class,
-//                R.layout.single_beer, beerListRef);
-//
-//        /* Set the adapter to the mListView */
-//        mListView.setAdapter(mBeerListAdapter);
-//
-//        /* Set click events and adapters */
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            Beer selectedBeer = mBeerListAdapter.getItem(position);
-//            if(selectedBeer != null){
-//                Intent intent = new Intent(getActivity(), DetailActivity.class);
-//                String listId = mBeerListAdapter.getRef(position).getKey();
-//                intent.putExtra(Constants.KEY_LIST_ID, listId);
-//
-//                startActivity(intent);
-//            }
-//            }
-//        });
+        mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_view_beer_list);
+        mRecycler.setHasFixedSize(true);
 
         return rootView;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-    private void initializeScreen(View rootView) {
-//        mListView = (ListView) rootView.findViewById(R.id.list_view_beer_list);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_beer_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        // Set up Layout Manager
+        mManager = new LinearLayoutManager(getActivity());
+        mManager.setReverseLayout(true);
+        mManager.setStackFromEnd(true);
+        mRecycler.setLayoutManager(mManager);
+
+        // Set up FirebaseRecyclerAdapter with the Query
+        Query beerQuery = getQuery(mDatabase);
+        mAdapter = new FirebaseRecyclerAdapter<Beer, BeerViewHolder>(Beer.class,
+                R.layout.single_beer, BeerViewHolder.class, beerQuery) {
+            @Override
+            protected void populateViewHolder(final BeerViewHolder viewHolder, final Beer model, int position) {
+                final DatabaseReference beerRef = getRef(position);
+
+                // Set click listener for the whole beer view
+                final String beerKey = beerRef.getKey();
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Launch BeerDetailActivity
+                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra(DetailActivity.EXTRA_BEER_KEY, beerKey);
+                        startActivity(intent);
+                    }
+                });
+                viewHolder.bindToBeer(model);
+            }
+        };
+        mRecycler.setAdapter(mAdapter);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mAdapter != null) {
+            mAdapter.cleanup();
+        }
+    }
+
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
+
+    public Query getQuery(DatabaseReference databaseReference) {
+        // All my beers
+        return databaseReference.child("user-beers")
+                .child(getUid());
+    }
+
 }
