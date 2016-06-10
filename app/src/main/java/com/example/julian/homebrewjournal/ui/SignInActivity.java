@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.User;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,17 +24,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignInActivity extends BaseActivity implements View.OnClickListener {
+public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
+        View.OnClickListener {
 
     private static final String TAG = "SignInActivity";
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
+    private GoogleApiClient mGoogleApiClient;
+
     private EditText mEmailField;
     private EditText mPasswordField;
     private Button mSignInButton;
-    private Button mSignOutButton;
+    private Button mSignUpButton;
 
 
     @Override
@@ -42,15 +49,27 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth     = FirebaseAuth.getInstance();
 
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+            .enableAutoManage(this, this)
+            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            .build();
+
+
         // Views
         mEmailField     = (EditText) findViewById(R.id.field_email);
         mPasswordField  = (EditText) findViewById(R.id.field_password);
         mSignInButton   = (Button)   findViewById(R.id.button_sign_in);
-        mSignOutButton  = (Button)   findViewById(R.id.button_sign_up);
+        mSignUpButton = (Button)   findViewById(R.id.button_sign_up);
 
         // Click Listeners
         mSignInButton.setOnClickListener(this);
-        mSignOutButton.setOnClickListener(this);
+        mSignUpButton.setOnClickListener(this);
     }
 
     @Override
@@ -161,5 +180,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 signUp();
                 break;
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
