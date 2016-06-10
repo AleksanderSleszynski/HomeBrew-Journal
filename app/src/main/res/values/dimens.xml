@@ -3,4 +3,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Single Beer dimens -->
+    <dimen name="single_beer_icon_size">40dp</dimen>
+    <dimen name="single_beer_margin">16dp</dimen>
+    <dimen name="single_beer_primary_text">16sp</dimen>
+    <dimen name="single_beer_secondary_text">14sp</dimen>
+    <dimen name="single_beer_card_height">72dp</dimen>
+    <dimen name="single_beer_card_margin">5dp</dimen>
+
+
 </resources>
