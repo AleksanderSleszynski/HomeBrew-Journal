@@ -1,6 +1,8 @@
 package com.example.julian.homebrewjournal;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +25,9 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     private DatabaseReference mBeerReference;
     private DatabaseReference mHopsReference;
     private ValueEventListener mBeerListener;
+
+    private Toolbar mToolbar;
+    private CollapsingToolbarLayout mCollapsingToolbar;
     private String mBeerKey;
 //    private HopAdapter mAdapter;
 
@@ -48,6 +53,12 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         mBeerReference = FirebaseDatabase.getInstance().getReference()
                 .child("beers").child(mBeerKey);
 
+
+        // Initialize Toolbar
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        mCollapsingToolbar.setVisibility(View.VISIBLE);
 
         // Initialize Views
         mNameTextView =  (TextView) findViewById(R.id.detail_name_textView);
@@ -82,6 +93,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                 mFGTextView.setText(finalGravity);
                 mBoilTextView.setText(boilVolume);
                 mBeerTextView.setText(beerVolume);
+
+                mCollapsingToolbar.setTitle(beer.name);
             }
 
             @Override
