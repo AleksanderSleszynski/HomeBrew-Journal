@@ -25,5 +25,11 @@
     <string name="sign_in">Sign In</string>
     <string name="hint_password">password</string>
     <string name="hint_email">email</string>
+    <string name="name">Name</string>
+    <string name="style">Style</string>
+    <string name="original_gravity">Original Gravity</string>
+    <string name="final_gravity">Final Gravity</string>
+    <string name="boiling_volume">Boiling Volume</string>
+    <string name="beer_volume">Beer Volume</string>
 
 </resources>

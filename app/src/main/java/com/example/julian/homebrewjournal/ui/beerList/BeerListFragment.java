@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.julian.homebrewjournal.DetailActivity;
+import com.example.julian.homebrewjournal.BeerDetailActivity;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.Beer;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -57,9 +58,9 @@ public class BeerListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Set up Layout Manager
-        mManager = new LinearLayoutManager(getActivity());
-        mManager.setReverseLayout(true);
-        mManager.setStackFromEnd(true);
+        mManager = new GridLayoutManager(getActivity(), 2);
+//        mManager.setReverseLayout(true);
+//        mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
 
         // Set up FirebaseRecyclerAdapter with the Query
@@ -76,8 +77,8 @@ public class BeerListFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         // Launch BeerDetailActivity
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(DetailActivity.EXTRA_BEER_KEY, beerKey);
+                        Intent intent = new Intent(getActivity(), BeerDetailActivity.class);
+                        intent.putExtra(BeerDetailActivity.EXTRA_BEER_KEY, beerKey);
                         startActivity(intent);
                     }
                 });
