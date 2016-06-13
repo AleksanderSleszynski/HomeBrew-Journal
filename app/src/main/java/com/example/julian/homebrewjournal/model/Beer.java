@@ -11,8 +11,8 @@ public class Beer {
     public String username;
     public String name;
     public String style;
-    public double FG;
-    public double OG;
+    public double finalGravity;
+    public double originalGravity;
     public double beerVolume;
     public double boilVolume;
 
@@ -31,13 +31,13 @@ public class Beer {
     }
 
     public Beer(String uid, String username, String mName, String mStyle,
-                double FG, double OG, double beerVolume, double boilVolume) {
+                double finalGravity, double originalGravity, double beerVolume, double boilVolume) {
         this.uid = uid;
         this.username = username;
         this.name = mName;
         this.style = mStyle;
-        this.FG = FG;
-        this.OG = OG;
+        this.finalGravity = finalGravity;
+        this.originalGravity = originalGravity;
         this.beerVolume = beerVolume;
         this.boilVolume = boilVolume;
     }
@@ -50,8 +50,8 @@ public class Beer {
         result.put("username", username);
         result.put("name", name);
         result.put("style", style);
-        result.put("fg", FG);
-        result.put("og", OG);
+        result.put("finalGravity", finalGravity);
+        result.put("originalGravity", originalGravity);
         result.put("beerVolume", beerVolume);
         result.put("boilVolume", boilVolume);
 

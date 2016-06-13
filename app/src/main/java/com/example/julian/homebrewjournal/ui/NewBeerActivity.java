@@ -110,9 +110,9 @@ public class NewBeerActivity extends BaseActivity {
     }
 
     private void addNewBeer(String userId, String username, String name, String style,
-                            Double FG, Double OG, Double beerVolume, Double boilVolume) {
+                            Double finalGravity, Double originalGravity, Double beerVolume, Double boilVolume) {
         String key = mDatabase.child("beers").push().getKey();
-        Beer beer = new Beer(userId, username, name, style, FG, OG, beerVolume, boilVolume);
+        Beer beer = new Beer(userId, username, name, style, finalGravity, originalGravity, beerVolume, boilVolume);
         Map<String, Object> beerValues = beer.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
