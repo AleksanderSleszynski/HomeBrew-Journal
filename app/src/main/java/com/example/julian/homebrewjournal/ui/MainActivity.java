@@ -2,6 +2,7 @@ package com.example.julian.homebrewjournal.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,13 +20,13 @@ public class MainActivity extends BaseActivity {
         /**
          * Link layout elements from XML and setup the toolbar
          */
-//        initializeScreen();
+        initializeScreen();
     }
 
-//    public void initializeScreen() {
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-//        setSupportActionBar(toolbar);
-//    }
+    public void initializeScreen() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+    }
 
     // Button lunches NewBeerActivity
     public void showNewBeerActivity(View view) {

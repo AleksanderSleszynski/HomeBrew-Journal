@@ -8,11 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.User;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,6 +39,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     private Button mSignInButton;
     private Button mSignUpButton;
 
+    private ImageView background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,14 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
                 .requestEmail()
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-            .enableAutoManage(this, this)
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//            .enableAutoManage(this, this)
+//            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//            .build();
 
+//
+//        background  = (ImageView) findViewById(R.id.tlo);
+//        Picasso.with(this).load(R.drawable.home_brew).into(background);
 
         // Views
         mEmailField     = (EditText) findViewById(R.id.field_email);
