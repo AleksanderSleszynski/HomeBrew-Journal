@@ -13,4 +13,13 @@
     <dimen name="single_beer_card_margin">5dp</dimen>
 
 
+    <!-- SignInActivity dimens -->
+    <dimen name="layout_margin_horizontal">32dp</dimen>
+    <dimen name="layout_margin_horizontal_small">8dp</dimen>
+    <dimen name="layout_margin_vertical">16dp</dimen>
+    <dimen name="layout_margin_vertical_small">4dp</dimen>
+    <dimen name="sign_in_button_width">200dp</dimen>
+    <dimen name="sign_in_buttons_margin">8dp</dimen>
+    <dimen name="layout_margin_vertical_big">16dp</dimen>
+
 </resources>

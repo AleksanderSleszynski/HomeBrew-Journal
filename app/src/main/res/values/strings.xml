@@ -31,5 +31,7 @@
     <string name="final_gravity">Final Gravity</string>
     <string name="boiling_volume">Boiling Volume</string>
     <string name="beer_volume">Beer Volume</string>
+    <string name="log_in">Log in with:</string>
+    <string name="or">OR</string>
 
 </resources>
