@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+/*
     buildTypes.each {
         it.buildConfigField 'String', 'UNIQUE_FIREBASE_ROOT_URL', UniqueFirebaseRootUrl
     }
@@ -27,6 +27,7 @@ android {
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
+*/
 }
 
 dependencies {
@@ -45,7 +46,7 @@ dependencies {
 
     compile 'com.google.android.gms:play-services-auth:9.0.2'
 
-    compile 'com.squareup.picasso:picasso:2.5.2'
+//    compile 'com.squareup.picasso:picasso:2.5.2'
 
 }
 apply plugin: 'com.google.gms.google-services'
