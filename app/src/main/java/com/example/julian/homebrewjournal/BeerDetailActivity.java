@@ -2,9 +2,11 @@ package com.example.julian.homebrewjournal;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     private TextView mBoilTextView;
     private TextView mBeerTextView;
 
+    private ImageView mBeerImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,13 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         mCollapsingToolbar.setVisibility(View.VISIBLE);
+        mBeerImageView = (ImageView) findViewById(R.id.photo_image_view);
+        mBeerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBeerImageDialog();
+            }
+        });
 
         // Initialize Views
         mNameTextView =  (TextView) findViewById(R.id.detail_name_textView);
@@ -112,5 +123,10 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+    }
+
+    private void showBeerImageDialog(){
+        BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
+        beerImageDialogFragment.show(getFragmentManager(), "TAG");
     }
 }

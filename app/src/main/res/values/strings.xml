@@ -33,5 +33,6 @@
     <string name="beer_volume">Beer Volume</string>
     <string name="log_in">Log in with:</string>
     <string name="or">OR</string>
+    <string name="beer_image_dialog_title">Choose Image</string>
 
 </resources>
