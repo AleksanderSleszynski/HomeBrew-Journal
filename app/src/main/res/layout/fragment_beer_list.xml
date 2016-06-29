@@ -15,5 +15,4 @@
             android:scrollbars="vertical"
             tools:listitem="@layout/single_beer" />
 
-
 </RelativeLayout>

@@ -59,10 +59,12 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
 
 
         // Initialize Toolbar
-        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        mCollapsingToolbar.setVisibility(View.VISIBLE);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
         mBeerImageView = (ImageView) findViewById(R.id.photo_image_view);
         mBeerImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,5 +130,24 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     private void showBeerImageDialog(){
         BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
         beerImageDialogFragment.show(getFragmentManager(), "TAG");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_logout:
+                FirebaseAuth.getInstance().signOut();
+                // Intent to SignIntActivity
+                startActivity(new Intent(this, SignInActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

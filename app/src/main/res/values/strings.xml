@@ -35,4 +35,7 @@
     <string name="or">OR</string>
     <string name="beer_image_dialog_title">Choose Image</string>
 
+    <!-- Content Description-->
+    <string name="action_new_beer">Add New Beer</string>
+
 </resources>

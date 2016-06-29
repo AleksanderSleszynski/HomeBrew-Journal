@@ -34,7 +34,6 @@ public class NewBeerActivity extends BaseActivity {
     private EditText mBeerVolumeField;
     private EditText mBoilVolumeField;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -2,7 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
 
     <!-- Single Beer dimens -->
     <dimen name="single_beer_icon_size">40dp</dimen>
@@ -21,5 +22,6 @@
     <dimen name="sign_in_button_width">200dp</dimen>
     <dimen name="sign_in_buttons_margin">8dp</dimen>
     <dimen name="layout_margin_vertical_big">16dp</dimen>
+
 
 </resources>

@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends BaseActivity {
 
+    private Toolbar mToolbar;
+    private CollapsingToolbarLayout mCollapsingToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
