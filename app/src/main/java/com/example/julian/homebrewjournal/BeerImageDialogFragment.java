@@ -3,23 +3,27 @@ package com.example.julian.homebrewjournal;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 
-public class BeerImageDialogFragment extends DialogFragment {
+public class BeerImageDialogFragment extends DialogFragment{
 
-    private Button lager;
-    private Button stout;
-    private Button apa;
-
-    private ImageView image;
+    private int mBeerImage;
 
     public BeerImageDialogFragment(){}
+
+    public interface BeerImageDialogListener {
+        void onFinishEditDialog(int beerImage);
+    }
+
+    public void sendBackResult(){
+        BeerImageDialogListener listener = (BeerImageDialogListener) getActivity();
+        listener.onFinishEditDialog(mBeerImage);
+        dismiss();
+    }
 
     public static BeerImageDialogFragment newInstance(){
         BeerImageDialogFragment frag = new BeerImageDialogFragment();
@@ -38,30 +42,32 @@ public class BeerImageDialogFragment extends DialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        lager = (Button) view.findViewById(R.id.lager);
-        stout = (Button) view.findViewById(R.id.stout);
-        apa   = (Button) view.findViewById(R.id.apa);
+        Button lager = (Button) view.findViewById(R.id.lager);
+        Button stout = (Button) view.findViewById(R.id.stout);
+        Button apa   = (Button) view.findViewById(R.id.apa);
 
-        image = (ImageView) view.findViewById(R.id.photo_image_view);
 
         lager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.lager));
+                mBeerImage = 1;
+                sendBackResult();
             }
         });
 
         stout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.stout));
+                mBeerImage = 2;
+                sendBackResult();
             }
         });
 
         apa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.pale_ale));
+                mBeerImage = 3;
+                sendBackResult();
             }
         });
 

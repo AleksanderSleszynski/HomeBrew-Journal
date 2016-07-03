@@ -16,6 +16,7 @@ public class Beer {
     public double beerVolume;
     public double boilVolume;
 
+    public int beerImage;
 //    private String hops;
 //    private String malts;
 //    private String other;
@@ -31,7 +32,8 @@ public class Beer {
     }
 
     public Beer(String uid, String username, String mName, String mStyle,
-                double finalGravity, double originalGravity, double beerVolume, double boilVolume) {
+                double finalGravity, double originalGravity, double beerVolume, double boilVolume,
+                int beerImage) {
         this.uid = uid;
         this.username = username;
         this.name = mName;
@@ -40,6 +42,7 @@ public class Beer {
         this.originalGravity = originalGravity;
         this.beerVolume = beerVolume;
         this.boilVolume = boilVolume;
+        this.beerImage = beerImage;
     }
 
     // Beer to map

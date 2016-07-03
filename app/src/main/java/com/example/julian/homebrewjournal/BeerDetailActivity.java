@@ -1,10 +1,12 @@
 package com.example.julian.homebrewjournal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.julian.homebrewjournal.model.Beer;
 import com.example.julian.homebrewjournal.ui.BaseActivity;
+import com.example.julian.homebrewjournal.ui.SignInActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -6,8 +6,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.julian.homebrewjournal.BeerImageDialogFragment;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.Beer;
 import com.example.julian.homebrewjournal.model.User;
@@ -20,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewBeerActivity extends BaseActivity {
+public class NewBeerActivity extends BaseActivity implements BeerImageDialogFragment.BeerImageDialogListener {
 
     public static final String TAG = "NewBeerActivity";
     public static final String REQUIRED = "Required";
@@ -33,6 +35,10 @@ public class NewBeerActivity extends BaseActivity {
     private EditText mOGField;
     private EditText mBeerVolumeField;
     private EditText mBoilVolumeField;
+
+    private ImageView mBeerImage;
+
+    private int mBeerImageDialog = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,15 @@ public class NewBeerActivity extends BaseActivity {
         mOGField    = (EditText) findViewById(R.id.field_beer_OG);
         mBeerVolumeField = (EditText) findViewById(R.id.field_beer_volume);
         mBoilVolumeField = (EditText) findViewById(R.id.field_beer_boil_volume);
+
+        mBeerImage = (ImageView) findViewById(R.id.beer_image);
+        mBeerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
+                beerImageDialogFragment.show(getFragmentManager(), "TAG");
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_submit_beer);
         assert fab != null;
@@ -71,6 +86,7 @@ public class NewBeerActivity extends BaseActivity {
         final Double beerVolume = Double.parseDouble(beerVolumeS);
         final Double boilVolume = Double.parseDouble(boilVolumeS);
 
+
         // Name is required
         if(TextUtils.isEmpty(name)){
             mNameField.setError(REQUIRED);
@@ -94,7 +110,8 @@ public class NewBeerActivity extends BaseActivity {
                 } else {
                     // Add new beer
                     Log.e(TAG, "User " + userId + " adding new beer");
-                    addNewBeer(userId, user.username, name, style, fg, og, beerVolume, boilVolume);
+                    addNewBeer(userId, user.username, name, style, fg, og, beerVolume, boilVolume,
+                            mBeerImageDialog);
                 }
 
                 finish();
@@ -109,9 +126,11 @@ public class NewBeerActivity extends BaseActivity {
     }
 
     private void addNewBeer(String userId, String username, String name, String style,
-                            Double finalGravity, Double originalGravity, Double beerVolume, Double boilVolume) {
+                            Double finalGravity, Double originalGravity, Double beerVolume,
+                            Double boilVolume, int beerImage ) {
         String key = mDatabase.child("beers").push().getKey();
-        Beer beer = new Beer(userId, username, name, style, finalGravity, originalGravity, beerVolume, boilVolume);
+        Beer beer = new Beer(userId, username, name, style, finalGravity, originalGravity,
+                beerVolume, boilVolume, beerImage);
         Map<String, Object> beerValues = beer.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
@@ -122,4 +141,9 @@ public class NewBeerActivity extends BaseActivity {
         mDatabase.updateChildren(childUpdates);
     }
 
+    @Override
+    public void onFinishEditDialog(int beerImage) {
+        mBeerImageDialog = beerImage;
+        Toast.makeText(NewBeerActivity.this, "" + beerImage, Toast.LENGTH_SHORT).show();
+    }
 }
