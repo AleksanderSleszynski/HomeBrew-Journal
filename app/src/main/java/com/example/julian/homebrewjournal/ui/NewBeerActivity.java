@@ -56,7 +56,6 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
         mBoilVolumeField = (EditText) findViewById(R.id.field_beer_boil_volume);
 
         mBeerImage = (ImageView) findViewById(R.id.beer_image);
-        Utility.setBeerImage(mBeerImage, mBeerImageDialog);
         mBeerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,5 +146,6 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
     public void onFinishEditDialog(int beerImage) {
         mBeerImageDialog = beerImage;
         Toast.makeText(NewBeerActivity.this, "" + beerImage, Toast.LENGTH_SHORT).show();
+        Utility.setBeerImage(mBeerImage, mBeerImageDialog);
     }
 }
