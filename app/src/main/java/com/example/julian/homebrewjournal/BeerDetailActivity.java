@@ -78,13 +78,14 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         });
 
         // Initialize Views
-        mNameTextView =  (TextView) findViewById(R.id.detail_name_textView);
-        mStyleTextView = (TextView) findViewById(R.id.detail_style_textView);
-        mOGTextView =    (TextView) findViewById(R.id.detail_og_textView);
-        mFGTextView =    (TextView) findViewById(R.id.detail_fg_textView);
-        mBoilTextView =  (TextView) findViewById(R.id.detail_boiling_volume_textView);
-        mBeerTextView =  (TextView) findViewById(R.id.detail_beer_volume_textView);
+        mNameTextView   = (TextView) findViewById(R.id.detail_name_textView);
+        mStyleTextView  = (TextView) findViewById(R.id.detail_style_textView);
+        mOGTextView     = (TextView) findViewById(R.id.detail_og_textView);
+        mFGTextView     = (TextView) findViewById(R.id.detail_fg_textView);
+        mBoilTextView   = (TextView) findViewById(R.id.detail_boiling_volume_textView);
+        mBeerTextView   = (TextView) findViewById(R.id.detail_beer_volume_textView);
 
+        mBeerImageView  = (ImageView) findViewById(R.id.photo_image_view);
     }
 
 
@@ -110,6 +111,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                 mFGTextView.setText(finalGravity);
                 mBoilTextView.setText(boilVolume);
                 mBeerTextView.setText(beerVolume);
+
+                Utility.setBeerImage(mBeerImageView, beer.beerImage);
 
                 mCollapsingToolbar.setTitle(beer.name);
             }
@@ -154,4 +157,5 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.julian.homebrewjournal.BeerImageDialogFragment;
 import com.example.julian.homebrewjournal.R;
+import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.model.Beer;
 import com.example.julian.homebrewjournal.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -55,6 +56,7 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
         mBoilVolumeField = (EditText) findViewById(R.id.field_beer_boil_volume);
 
         mBeerImage = (ImageView) findViewById(R.id.beer_image);
+        Utility.setBeerImage(mBeerImage, mBeerImageDialog);
         mBeerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

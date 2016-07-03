@@ -57,6 +57,7 @@ public class Beer {
         result.put("originalGravity", originalGravity);
         result.put("beerVolume", beerVolume);
         result.put("boilVolume", boilVolume);
+        result.put("beerImage", beerImage);
 
         return result;
     }
