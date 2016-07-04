@@ -4,16 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.julian.homebrewjournal.ui.BeerDetailActivity;
 import com.example.julian.homebrewjournal.R;
+import com.example.julian.homebrewjournal.VarColumnGridLayoutManager;
 import com.example.julian.homebrewjournal.model.Beer;
+import com.example.julian.homebrewjournal.ui.BeerDetailActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +58,7 @@ public class BeerListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Set up Layout Manager
-        mManager = new GridLayoutManager(getActivity(), 2);
+        mManager = new VarColumnGridLayoutManager(getActivity(), 600);
 //        mManager.setReverseLayout(true);
 //        mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
