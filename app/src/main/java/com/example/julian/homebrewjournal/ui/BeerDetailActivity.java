@@ -1,4 +1,4 @@
-package com.example.julian.homebrewjournal;
+package com.example.julian.homebrewjournal.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
+import com.example.julian.homebrewjournal.R;
+import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.model.Beer;
-import com.example.julian.homebrewjournal.ui.BaseActivity;
-import com.example.julian.homebrewjournal.ui.SignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

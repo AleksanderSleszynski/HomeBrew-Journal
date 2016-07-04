@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SignInActivity dimens -->
+    <dimen name="sign_in_margin_horizontal">64dp</dimen>
+    <dimen name="sign_in_margin_horizontal_small">16dp</dimen>
+    <dimen name="sign_in_margin_vertical">32dp</dimen>
+    <dimen name="sign_in_margin_vertical_small">8dp</dimen>
+    <dimen name="sign_in_buttons_margin">16dp</dimen>
+
+    <dimen name="new_beer_image_height">240dp</dimen>
+
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+</resources>

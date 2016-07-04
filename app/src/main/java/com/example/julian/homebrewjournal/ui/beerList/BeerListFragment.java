@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.julian.homebrewjournal.BeerDetailActivity;
+import com.example.julian.homebrewjournal.ui.BeerDetailActivity;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.Beer;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;

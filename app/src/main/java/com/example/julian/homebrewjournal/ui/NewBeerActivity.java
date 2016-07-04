@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.julian.homebrewjournal.BeerImageDialogFragment;
+import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.model.Beer;

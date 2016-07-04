@@ -35,9 +35,9 @@
             android:layout_weight="2"
             android:layout_height="150dp"
             android:src="@mipmap/ic_launcher"
-            android:layout_marginTop="@dimen/layout_margin_vertical"
-            android:layout_marginLeft="@dimen/layout_margin_horizontal"
-            android:layout_marginStart="@dimen/layout_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_in_margin_vertical"
+            android:layout_marginLeft="@dimen/sign_in_margin_horizontal"
+            android:layout_marginStart="@dimen/sign_in_margin_horizontal"
             android:layout_gravity="center" />
 
         <LinearLayout
@@ -45,10 +45,10 @@
             android:layout_weight="5"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_marginStart="@dimen/layout_margin_horizontal"
-            android:layout_marginEnd="@dimen/layout_margin_horizontal"
-            android:layout_marginLeft="@dimen/layout_margin_horizontal"
-            android:layout_marginRight="@dimen/layout_margin_horizontal"
+            android:layout_marginStart="@dimen/sign_in_margin_horizontal"
+            android:layout_marginEnd="@dimen/sign_in_margin_horizontal"
+            android:layout_marginLeft="@dimen/sign_in_margin_horizontal"
+            android:layout_marginRight="@dimen/sign_in_margin_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -59,7 +59,7 @@
                 android:text="@string/log_in"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:layout_marginBottom="@dimen/layout_margin_vertical"/>
+                android:layout_marginBottom="@dimen/sign_in_margin_vertical"/>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
@@ -73,8 +73,8 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:layout_marginTop="@dimen/layout_margin_vertical"
-                android:layout_marginBottom="@dimen/layout_margin_vertical_small"
+                android:layout_marginTop="@dimen/sign_in_margin_vertical"
+                android:layout_marginBottom="@dimen/sign_in_margin_vertical_small"
                 android:text="@string/or"/>
 
             <EditText
@@ -103,7 +103,7 @@
                 android:id="@+id/layout_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_margin_vertical"
+                android:layout_marginTop="@dimen/sign_in_margin_vertical"
                 android:orientation="horizontal">
 
                 <Button

@@ -1,4 +1,4 @@
-package com.example.julian.homebrewjournal;
+package com.example.julian.homebrewjournal.ui.dialog;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -6,7 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.GridView;
+
+import com.example.julian.homebrewjournal.R;
 
 
 public class BeerImageDialogFragment extends DialogFragment{
@@ -35,38 +38,20 @@ public class BeerImageDialogFragment extends DialogFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_beer_image, container);
+        return inflater.inflate(R.layout.beer_image_dialog, container);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button lager = (Button) view.findViewById(R.id.lager);
-        Button stout = (Button) view.findViewById(R.id.stout);
-        Button apa   = (Button) view.findViewById(R.id.apa);
+        GridView gridView = (GridView) view.findViewById(R.id.beer_image_dialog_grid_view);
+        gridView.setAdapter(new BeerImageDialogAdapter(view.getContext()));
 
-
-        lager.setOnClickListener(new View.OnClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                mBeerImage = 1;
-                sendBackResult();
-            }
-        });
-
-        stout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBeerImage = 2;
-                sendBackResult();
-            }
-        });
-
-        apa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBeerImage = 3;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mBeerImage = position + 1;
                 sendBackResult();
             }
         });

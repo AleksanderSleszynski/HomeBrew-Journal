@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/beer_image_dialog_title"
+        android:textSize="@dimen/title_text_size"
+        android:padding="@dimen/beer_image_dialog_padding"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/beer_image_dialog_margin"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark" />
+
+    <GridView
+        android:id="@+id/beer_image_dialog_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="@dimen/beer_image_dialog_column_width"
+        android:numColumns="2"
+        android:layout_marginStart="@dimen/beer_image_dialog_margin"
+        android:layout_marginEnd="@dimen/beer_image_dialog_margin"
+        android:layout_marginBottom="@dimen/beer_image_dialog_margin"
+        android:verticalSpacing="@dimen/beer_image_dialog_spacing"
+        android:horizontalSpacing="@dimen/beer_image_dialog_spacing"
+        android:stretchMode="columnWidth"
+        android:gravity="center" />
+
+</LinearLayout>
