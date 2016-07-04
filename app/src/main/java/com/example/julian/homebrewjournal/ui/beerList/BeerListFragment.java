@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,9 @@ public class BeerListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 275, getResources().getDisplayMetrics());
         // Set up Layout Manager
-        mManager = new VarColumnGridLayoutManager(getActivity(), 600);
+        mManager = new VarColumnGridLayoutManager(getActivity(), px);
 //        mManager.setReverseLayout(true);
 //        mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
