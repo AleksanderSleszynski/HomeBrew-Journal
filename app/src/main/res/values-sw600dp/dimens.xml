@@ -11,4 +11,11 @@
 
     <dimen name="activity_horizontal_margin">64dp</dimen>
 
+    <!-- BeerImageDialog dimens-->
+    <dimen name="beer_image_dialog_padding">16dp</dimen>
+    <dimen name="beer_image_dialog_margin">16dp</dimen>
+    <dimen name="beer_image_dialog_spacing">20dp</dimen>
+    <dimen name="beer_image_dialog_column_width">90dp</dimen>
+
+
 </resources>

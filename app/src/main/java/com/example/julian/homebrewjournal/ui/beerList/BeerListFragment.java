@@ -6,12 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.julian.homebrewjournal.R;
+import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.VarColumnGridLayoutManager;
 import com.example.julian.homebrewjournal.model.Beer;
 import com.example.julian.homebrewjournal.ui.BeerDetailActivity;
@@ -58,7 +58,7 @@ public class BeerListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 275, getResources().getDisplayMetrics());
+        int px = Utility.convertPx(275, getResources());
         // Set up Layout Manager
         mManager = new VarColumnGridLayoutManager(getActivity(), px);
 //        mManager.setReverseLayout(true);

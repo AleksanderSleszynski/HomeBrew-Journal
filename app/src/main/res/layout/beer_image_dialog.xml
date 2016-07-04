@@ -19,13 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="@dimen/beer_image_dialog_column_width"
-        android:numColumns="2"
+        android:numColumns="auto_fit"
         android:layout_marginStart="@dimen/beer_image_dialog_margin"
         android:layout_marginEnd="@dimen/beer_image_dialog_margin"
         android:layout_marginBottom="@dimen/beer_image_dialog_margin"
         android:verticalSpacing="@dimen/beer_image_dialog_spacing"
         android:horizontalSpacing="@dimen/beer_image_dialog_spacing"
-        android:stretchMode="columnWidth"
         android:gravity="center" />
 
 </LinearLayout>
