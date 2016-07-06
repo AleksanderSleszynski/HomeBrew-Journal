@@ -31,6 +31,6 @@
     <dimen name="beer_image_dialog_padding">8dp</dimen>
     <dimen name="beer_image_dialog_margin">8dp</dimen>
     <dimen name="beer_image_dialog_spacing">10dp</dimen>
-    <dimen name="beer_image_dialog_column_width">90dp</dimen>
+    <dimen name="beer_image_dialog_column_width">120dp</dimen>
 
 </resources>
