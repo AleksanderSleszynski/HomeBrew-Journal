@@ -164,8 +164,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         super.onStop();
         if(mBeerListener != null){
             mBeerReference.removeEventListener(mBeerListener);
+            mBeerUserReference.removeEventListener(mBeerListener);
         }
-
     }
 
     @Override
