@@ -38,6 +38,7 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private String mBeerKey;
+    private String mUserUid;
 //    private HopAdapter mAdapter;
 
     private TextView mNameTextView;
@@ -63,10 +64,13 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
             throw new IllegalArgumentException("Must pass EXTRA_BEER_KEY");
         }
 
+        mUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         // Initialize Database
         mBeerReference = FirebaseDatabase.getInstance().getReference()
                 .child("beers").child(mBeerKey);
-
+        mBeerUserReference = FirebaseDatabase.getInstance().getReference()
+                .child("user-beers").child(mUserUid).child(mBeerKey);
 
         // Initialize Toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -192,9 +196,6 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     public void deleteBeer(){
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mBeerUserReference = FirebaseDatabase.getInstance().getReference()
-                .child("user-beers").child(user).child(mBeerKey);
         mBeerUserReference.removeValue();
         mBeerReference.removeValue();
         startActivity(new Intent(this, MainActivity.class));
