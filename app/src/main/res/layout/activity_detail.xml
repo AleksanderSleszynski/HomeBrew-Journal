@@ -190,4 +190,45 @@
             </android.support.v7.widget.GridLayout>
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/fab_on_click_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryLightLow"
+        android:visibility="invisible"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom|end"
+        app:fab_addButtonColorNormal="@color/colorAccent"
+        app:fab_addButtonColorPressed="@color/colorAccent"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_expandDirection="up">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_hop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/hop"
+            app:fab_title="Add New Hop"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/white"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_malt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/malt"
+            app:fab_title="Add New Malt"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/white"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </android.support.design.widget.CoordinatorLayout>

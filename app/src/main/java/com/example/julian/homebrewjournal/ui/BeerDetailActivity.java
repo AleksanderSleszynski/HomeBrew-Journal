@@ -12,10 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.model.Beer;
+import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +47,9 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     private TextView mBeerTextView;
 
     private ImageView mBeerImageView;
+
+    private FloatingActionButton mFabAddHop;
+    private FloatingActionButton mFabAddMalt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,23 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         mBeerTextView   = (TextView) findViewById(R.id.detail_beer_volume_textView);
 
         mBeerImageView  = (ImageView) findViewById(R.id.photo_image_view);
+
+        mFabAddHop = (FloatingActionButton) findViewById(R.id.fab_add_hop);
+        mFabAddMalt = (FloatingActionButton) findViewById(R.id.fab_add_malt);
+
+        mFabAddHop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BeerDetailActivity.this, "HOP", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mFabAddMalt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BeerDetailActivity.this, "malt", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
