@@ -39,4 +39,9 @@
     <string name="action_new_beer">Add New Beer</string>
     <string name="beer_image_description">Beer Image</string>
 
+    <string name="new_hop">Add New Hop</string>
+    <string name="new_malt">Add New Malt</string>
+    <string name="delete">Delete</string>
+    <string name="beer_deleted">Beer Deleted</string>
+
 </resources>

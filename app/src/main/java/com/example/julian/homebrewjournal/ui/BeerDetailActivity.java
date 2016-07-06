@@ -31,6 +31,7 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     public static final String EXTRA_BEER_KEY = "beer_key";
 
     private DatabaseReference mBeerReference;
+    private DatabaseReference mBeerUserReference;
     private DatabaseReference mHopsReference;
     private ValueEventListener mBeerListener;
 
@@ -122,21 +123,23 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                 // Get Beer object and use the values to update the UI
                 Beer beer = dataSnapshot.getValue(Beer.class);
 
-                String originalGravity = beer.originalGravity + " " + (char) 0x00B0 +"P";
-                String finalGravity = beer.finalGravity + " " + (char) 0x00B0 +"P";
-                String boilVolume = beer.boilVolume + "  L";
-                String beerVolume = beer.beerVolume + "  L";
+                if(beer !=null) {
+                    String originalGravity = beer.originalGravity + " " + (char) 0x00B0 + "P";
+                    String finalGravity = beer.finalGravity + " " + (char) 0x00B0 + "P";
+                    String boilVolume = beer.boilVolume + "  L";
+                    String beerVolume = beer.beerVolume + "  L";
 
-                mNameTextView.setText(beer.name);
-                mStyleTextView.setText(beer.style);
-                mOGTextView.setText(originalGravity);
-                mFGTextView.setText(finalGravity);
-                mBoilTextView.setText(boilVolume);
-                mBeerTextView.setText(beerVolume);
+                    mNameTextView.setText(beer.name);
+                    mStyleTextView.setText(beer.style);
+                    mOGTextView.setText(originalGravity);
+                    mFGTextView.setText(finalGravity);
+                    mBoilTextView.setText(boilVolume);
+                    mBeerTextView.setText(beerVolume);
 
-                Utility.setBeerImage(mBeerImageView, beer.beerImage);
+                    Utility.setBeerImage(mBeerImageView, beer.beerImage);
 
-                mCollapsingToolbar.setTitle(beer.name);
+                    mCollapsingToolbar.setTitle(beer.name);
+                }
             }
 
             @Override
@@ -151,6 +154,16 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         mBeerReference.addValueEventListener(beerlistener);
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mBeerListener != null){
+            mBeerReference.removeEventListener(mBeerListener);
+        }
+
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -163,21 +176,29 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_logout:
-                FirebaseAuth.getInstance().signOut();
-                // Intent to SignIntActivity
-                startActivity(new Intent(this, SignInActivity.class));
+            case R.id.action_delete:
+                deleteBeer();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void deleteBeer(){
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mBeerUserReference = FirebaseDatabase.getInstance().getReference()
+                .child("user-beers").child(user).child(mBeerKey);
+        mBeerUserReference.removeValue();
+        mBeerReference.removeValue();
+        startActivity(new Intent(this, MainActivity.class));
+        Toast.makeText(BeerDetailActivity.this, R.string.beer_deleted, Toast.LENGTH_SHORT).show();
     }
 
 }

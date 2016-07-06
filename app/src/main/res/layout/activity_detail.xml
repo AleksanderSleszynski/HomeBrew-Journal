@@ -216,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/hop"
-            app:fab_title="Add New Hop"
+            app:fab_title="@string/new_hop"
             app:fab_size="mini"
             app:fab_colorNormal="@color/white"/>
 
@@ -225,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/malt"
-            app:fab_title="Add New Malt"
+            app:fab_title="@string/new_malt"
             app:fab_size="mini"
             app:fab_colorNormal="@color/white"/>
 
