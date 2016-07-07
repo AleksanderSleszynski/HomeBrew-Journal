@@ -248,6 +248,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
             case R.id.action_delete:
                 onCreateDialog();
                 return true;
+            case R.id.action_edit:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

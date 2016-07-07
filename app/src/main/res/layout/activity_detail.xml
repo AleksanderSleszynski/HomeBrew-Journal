@@ -222,7 +222,8 @@
                         <EditText
                             android:id="@+id/name_detail_edit_text"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:singleLine="true"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -232,7 +233,8 @@
                         <EditText
                             android:id="@+id/style_detail_edit_text"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:singleLine="true"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <!-- Double Inputs -->

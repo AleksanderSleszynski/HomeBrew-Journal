@@ -49,5 +49,6 @@
     <string name="dialog_delete_message">Do you really want to delete Beer?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="edit">Edit</string>
 
 </resources>
