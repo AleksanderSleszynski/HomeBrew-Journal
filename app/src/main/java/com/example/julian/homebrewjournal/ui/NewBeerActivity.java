@@ -48,12 +48,12 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mNameField  = (EditText) findViewById(R.id.field_beer_name);
-        mStyleField = (EditText) findViewById(R.id.field_beer_style);
-        mFGField    = (EditText) findViewById(R.id.field_beer_FG);
-        mOGField    = (EditText) findViewById(R.id.field_beer_OG);
-        mBeerVolumeField = (EditText) findViewById(R.id.field_beer_volume);
-        mBoilVolumeField = (EditText) findViewById(R.id.field_beer_boil_volume);
+        mNameField  = (EditText) findViewById(R.id.name_new_beer_edit_text);
+        mStyleField = (EditText) findViewById(R.id.style_new_beer_edit_text);
+        mFGField    = (EditText) findViewById(R.id.fg_new_beer_edit_text);
+        mOGField    = (EditText) findViewById(R.id.og_new_beer_edit_text);
+        mBeerVolumeField = (EditText) findViewById(R.id.beer_volume_new_beer_edit_text);
+        mBoilVolumeField = (EditText) findViewById(R.id.boil_volume_new_beer_edit_text);
 
         mBeerImage = (ImageView) findViewById(R.id.beer_image);
         mBeerImage.setOnClickListener(new View.OnClickListener() {

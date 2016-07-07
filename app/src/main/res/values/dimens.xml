@@ -33,4 +33,10 @@
     <dimen name="beer_image_dialog_spacing">10dp</dimen>
     <dimen name="beer_image_dialog_column_width">120dp</dimen>
 
+    <!-- BeerDetailActivity -->
+    <dimen name="margin_horizontal_detail_card_view">8dp</dimen>
+    <dimen name="margin_vertical_detail_card_view">8dp</dimen>
+    <dimen name="elevation_detail_card_view">8dp</dimen>
+    <dimen name="radius_detail_card_view">2dp</dimen>
+
 </resources>

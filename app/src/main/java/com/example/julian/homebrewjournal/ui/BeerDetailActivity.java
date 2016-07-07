@@ -1,6 +1,5 @@
 package com.example.julian.homebrewjournal.ui;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,6 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     public static final String TAG = "BeerDetailActivity";
 
     public static final String EXTRA_BEER_KEY = "beer_key";
-
-    private Context mContext;
 
     private DatabaseReference mBeerReference;
     private DatabaseReference mBeerUserReference;
@@ -57,6 +56,15 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
 
     private FloatingActionButton mFabAddHop;
     private FloatingActionButton mFabAddMalt;
+
+    private EditText mNameEditText;
+    private EditText mStyleEditText;
+    private EditText mOGEditText;
+    private EditText mFGEditText;
+    private EditText mBoilEditText;
+    private EditText mBeerEditText;
+
+    private Button mSaveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,17 +101,50 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         });
 
         // Initialize Views
-        mNameTextView   = (TextView) findViewById(R.id.detail_name_textView);
-        mStyleTextView  = (TextView) findViewById(R.id.detail_style_textView);
-        mOGTextView     = (TextView) findViewById(R.id.detail_og_textView);
-        mFGTextView     = (TextView) findViewById(R.id.detail_fg_textView);
-        mBoilTextView   = (TextView) findViewById(R.id.detail_boiling_volume_textView);
-        mBeerTextView   = (TextView) findViewById(R.id.detail_beer_volume_textView);
+        mNameTextView   = (TextView) findViewById(R.id.name_detail_textView);
+        mStyleTextView  = (TextView) findViewById(R.id.style_detail_textView);
+        mOGTextView     = (TextView) findViewById(R.id.og_detail_textView);
+        mFGTextView     = (TextView) findViewById(R.id.fg_detail_textView);
+        mBoilTextView   = (TextView) findViewById(R.id.boiling_volume_detail_textView);
+        mBeerTextView   = (TextView) findViewById(R.id.beer_volume_detail_textView);
+
+        mNameEditText   = (EditText) findViewById(R.id.name_detail_edit_text);
+        mStyleEditText  = (EditText) findViewById(R.id.style_detail_edit_text);
+        mOGEditText     = (EditText) findViewById(R.id.og_detail_edit_text);
+        mFGEditText     = (EditText) findViewById(R.id.fg_detail_edit_text);
+        mBoilEditText   = (EditText) findViewById(R.id.boil_volume_detail_edit_text);
+        mBeerEditText   = (EditText) findViewById(R.id.beer_volume_detail_edit_text);
 
         mBeerImageView  = (ImageView) findViewById(R.id.photo_image_view);
 
-        mFabAddHop = (FloatingActionButton) findViewById(R.id.fab_add_hop);
-        mFabAddMalt = (FloatingActionButton) findViewById(R.id.fab_add_malt);
+        mFabAddHop = (FloatingActionButton) findViewById(R.id.add_hop_detail_fab);
+        mFabAddMalt = (FloatingActionButton) findViewById(R.id.add_malt_detail_fab);
+
+        mSaveButton = (Button) findViewById(R.id.save_detail_button);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBeerReference.child("name").setValue(mNameEditText.getText().toString());
+                mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
+
+                mBeerReference.child("style").setValue(mStyleEditText.getText().toString());
+                mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
+
+                mBeerReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+                mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+
+                mBeerReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+                mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+
+                mBeerReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
+                mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
+
+                mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+                mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+
+            }
+        });
+
 
         mFabAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,17 +167,22 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         super.onStart();
 
         // Add value event listener to the post
-        ValueEventListener beerlistener = new ValueEventListener() {
+        ValueEventListener beerListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Beer object and use the values to update the UI
                 Beer beer = dataSnapshot.getValue(Beer.class);
 
                 if(beer !=null) {
-                    String originalGravity = beer.originalGravity + " " + (char) 0x00B0 + "P";
-                    String finalGravity = beer.finalGravity + " " + (char) 0x00B0 + "P";
-                    String boilVolume = beer.boilVolume + "  L";
-                    String beerVolume = beer.beerVolume + "  L";
+//                    String originalGravity = beer.originalGravity + " " + (char) 0x00B0 + "P";
+//                    String finalGravity = beer.finalGravity + " " + (char) 0x00B0 + "P";
+//                    String boilVolume = beer.boilVolume + "  L";
+//                    String beerVolume = beer.beerVolume + "  L";
+
+                    String originalGravity  = Double.toString(beer.originalGravity);
+                    String finalGravity     = Double.toString(beer.finalGravity);
+                    String boilVolume       = Double.toString(beer.boilVolume);
+                    String beerVolume       = Double.toString(beer.beerVolume);
 
                     mNameTextView.setText(beer.name);
                     mStyleTextView.setText(beer.style);
@@ -148,6 +194,13 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                     Utility.setBeerImage(mBeerImageView, beer.beerImage);
 
                     mCollapsingToolbar.setTitle(beer.name);
+
+                    mNameEditText.setText(beer.name);
+                    mStyleEditText.setText(beer.style);
+                    mOGEditText.setText(originalGravity);
+                    mFGEditText.setText(finalGravity);
+                    mBoilEditText.setText(boilVolume);
+                    mBeerEditText.setText(beerVolume);
                 }
             }
 
@@ -160,7 +213,7 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
             }
         };
 
-        mBeerReference.addValueEventListener(beerlistener);
+        mBeerReference.addValueEventListener(beerListener);
     }
 
 

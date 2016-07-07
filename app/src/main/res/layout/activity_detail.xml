@@ -42,161 +42,255 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="2dp">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.GridLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <android.support.v7.widget.CardView
+                android:id="@+id/basic_info_card"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".ui.BeerDetailActivity"
-                app:columnCount="2">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginLeft="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginEnd="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginRight="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginTop="@dimen/margin_vertical_detail_card_view"
+                app:cardElevation="@dimen/elevation_detail_card_view"
+                app:cardCornerRadius="@dimen/radius_detail_card_view">
 
-                <TextView
+                <android.support.v7.widget.GridLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    tools:context=".ui.BeerDetailActivity"
+                    app:columnCount="2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/basic_info_detail_textView"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:fontFamily="sans-serif"
+                        app:layout_columnSpan="2"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/detail_name_label_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/name" />
+
+                    <TextView
+                        android:id="@+id/name_detail_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                    <TextView
+                        android:id="@+id/detail_style_label_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/style" />
+
+                    <TextView
+                        android:id="@+id/style_detail_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                    <TextView
+                        android:id="@+id/detail_og_label_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/original_gravity" />
+
+                    <TextView
+                        android:id="@+id/og_detail_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                    <TextView
+                        android:id="@+id/detail_fg_label_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/final_gravity" />
+
+                    <TextView
+                        android:id="@+id/fg_detail_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                    <TextView
+                        android:id="@+id/detail_boiling_volume_label_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/boiling_volume" />
+
+                    <TextView
+                        android:id="@+id/boiling_volume_detail_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                    <TextView
+                        android:id="@+id/detail_beer_volume_label_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/beer_volume" />
+
+                    <TextView
+                        android:id="@+id/beer_volume_detail_textView"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:layout_gravity="fill"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                </android.support.v7.widget.GridLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginLeft="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginEnd="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginRight="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginTop="@dimen/margin_vertical_detail_card_view"
+                app:cardElevation="@dimen/elevation_detail_card_view"
+                app:cardCornerRadius="@dimen/radius_detail_card_view">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/basic_info_detail_textView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:fontFamily="sans-serif"
-                    app:layout_columnSpan="2"
-                    android:layout_marginBottom="8dp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/detail_name_label_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/name" />
+                    <!-- String Inputs -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_beer_name">
+                        <EditText
+                            android:id="@+id/name_detail_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/detail_name_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_beer_style">
+                        <EditText
+                            android:id="@+id/style_detail_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/detail_style_label_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/style" />
+                    <!-- Double Inputs -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_beer_FG">
+                        <EditText
+                            android:id="@+id/fg_detail_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="numberDecimal"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/detail_style_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_beer_OG">
+                        <EditText
+                            android:id="@+id/og_detail_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="numberDecimal"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/detail_og_label_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/original_gravity" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_beer_volume">
+                        <EditText
+                            android:id="@+id/beer_volume_detail_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="numberDecimal"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/detail_og_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_beer_boil_volume">
+                        <EditText
+                            android:id="@+id/boil_volume_detail_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="numberDecimal"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/detail_fg_label_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/final_gravity" />
 
-                <TextView
-                    android:id="@+id/detail_fg_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                    <Button
+                        android:id="@+id/save_detail_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/detail_boiling_volume_label_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/boiling_volume" />
-
-                <TextView
-                    android:id="@+id/detail_boiling_volume_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                <TextView
-                    android:id="@+id/detail_beer_volume_label_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/beer_volume" />
-
-                <TextView
-                    android:id="@+id/detail_beer_volume_textView"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    app:layout_gravity="fill"
-                    android:fontFamily="sans-serif"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-            </android.support.v7.widget.GridLayout>
-        </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>
 
-    <View
-        android:id="@+id/fab_on_click_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryLightLow"
-        android:visibility="invisible"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_menu"
@@ -212,7 +306,7 @@
         app:fab_expandDirection="up">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_hop"
+            android:id="@+id/add_hop_detail_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/hop"
@@ -221,7 +315,7 @@
             app:fab_colorNormal="@color/white"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_malt"
+            android:id="@+id/add_malt_detail_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/malt"

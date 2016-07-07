@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_name">
                 <EditText
-                    android:id="@+id/field_beer_name"
+                    android:id="@+id/name_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </android.support.design.widget.TextInputLayout>
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_style">
                 <EditText
-                    android:id="@+id/field_beer_style"
+                    android:id="@+id/style_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </android.support.design.widget.TextInputLayout>
@@ -61,10 +61,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_FG">
                 <EditText
-                    android:id="@+id/field_beer_FG"
+                    android:id="@+id/fg_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -72,10 +72,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_OG">
                 <EditText
-                    android:id="@+id/field_beer_OG"
+                    android:id="@+id/og_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -83,10 +83,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_volume">
                 <EditText
-                    android:id="@+id/field_beer_volume"
+                    android:id="@+id/beer_volume_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -94,10 +94,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_boil_volume">
                 <EditText
-                    android:id="@+id/field_beer_boil_volume"
+                    android:id="@+id/boil_volume_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
