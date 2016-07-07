@@ -1,8 +1,11 @@
 package com.example.julian.homebrewjournal.ui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +32,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     public static final String TAG = "BeerDetailActivity";
 
     public static final String EXTRA_BEER_KEY = "beer_key";
+
+    private Context mContext;
 
     private DatabaseReference mBeerReference;
     private DatabaseReference mBeerUserReference;
@@ -188,7 +193,7 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_delete:
-                deleteBeer();
+                onCreateDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -200,6 +205,23 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         mBeerReference.removeValue();
         startActivity(new Intent(this, MainActivity.class));
         Toast.makeText(BeerDetailActivity.this, R.string.beer_deleted, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onCreateDialog(){
+        new AlertDialog.Builder(this)
+            .setMessage(R.string.dialog_delete_message)
+            .setTitle(R.string.dialog_delete_title)
+            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteBeer();
+                }})
+            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }})
+            .show();
     }
 
 }

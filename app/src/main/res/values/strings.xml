@@ -42,6 +42,12 @@
     <string name="new_hop">Add New Hop</string>
     <string name="new_malt">Add New Malt</string>
     <string name="delete">Delete</string>
+
+    <!-- Dialog Delete Beer-->
     <string name="beer_deleted">Beer Deleted</string>
+    <string name="dialog_delete_title">Delete Beer</string>
+    <string name="dialog_delete_message">Do you really want to delete Beer?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
