@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,43 +29,40 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class BeerDetailActivity extends BaseActivity implements View.OnClickListener {
+public class BeerDetailActivity extends BaseActivity
+        implements BeerImageDialogFragment.BeerImageDialogListener {
 
     public static final String TAG = "BeerDetailActivity";
 
     public static final String EXTRA_BEER_KEY = "beer_key";
 
-    private DatabaseReference mBeerReference;
-    private DatabaseReference mBeerUserReference;
-    private DatabaseReference mHopsReference;
+    private DatabaseReference mBeerReference, mBeerUserReference, mHopsReference;
     private ValueEventListener mBeerListener;
 
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private String mBeerKey;
     private String mUserUid;
+    String originalGravity;
 //    private HopAdapter mAdapter;
 
-    private TextView mNameTextView;
-    private TextView mStyleTextView;
-    private TextView mOGTextView;
-    private TextView mFGTextView;
-    private TextView mBoilTextView;
-    private TextView mBeerTextView;
+    private TextView mNameTextView, mStyleTextView, mOGTextView, mFGTextView,
+            mBoilTextView, mBeerTextView;
+
+    private EditText mNameEditText, mStyleEditText, mOGEditText, mFGEditText, mBoilEditText,
+            mBeerEditText;
 
     private ImageView mBeerImageView;
 
     private FloatingActionButton mFabAddHop;
     private FloatingActionButton mFabAddMalt;
 
-    private EditText mNameEditText;
-    private EditText mStyleEditText;
-    private EditText mOGEditText;
-    private EditText mFGEditText;
-    private EditText mBoilEditText;
-    private EditText mBeerEditText;
-
     private Button mSaveButton;
+
+    private CardView mBasicInfoCardView;
+    private CardView mEditCardView;
+
+    private int mNumberDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,50 +99,20 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         });
 
         // Initialize Views
-        mNameTextView   = (TextView) findViewById(R.id.name_detail_textView);
-        mStyleTextView  = (TextView) findViewById(R.id.style_detail_textView);
-        mOGTextView     = (TextView) findViewById(R.id.og_detail_textView);
-        mFGTextView     = (TextView) findViewById(R.id.fg_detail_textView);
-        mBoilTextView   = (TextView) findViewById(R.id.boiling_volume_detail_textView);
-        mBeerTextView   = (TextView) findViewById(R.id.beer_volume_detail_textView);
+        initializeScreen();
 
-        mNameEditText   = (EditText) findViewById(R.id.name_detail_edit_text);
-        mStyleEditText  = (EditText) findViewById(R.id.style_detail_edit_text);
-        mOGEditText     = (EditText) findViewById(R.id.og_detail_edit_text);
-        mFGEditText     = (EditText) findViewById(R.id.fg_detail_edit_text);
-        mBoilEditText   = (EditText) findViewById(R.id.boil_volume_detail_edit_text);
-        mBeerEditText   = (EditText) findViewById(R.id.beer_volume_detail_edit_text);
+        mBasicInfoCardView.setVisibility(View.VISIBLE);
+        mEditCardView.setVisibility(View.GONE);
 
-        mBeerImageView  = (ImageView) findViewById(R.id.photo_image_view);
-
-        mFabAddHop = (FloatingActionButton) findViewById(R.id.add_hop_detail_fab);
-        mFabAddMalt = (FloatingActionButton) findViewById(R.id.add_malt_detail_fab);
-
-        mSaveButton = (Button) findViewById(R.id.save_detail_button);
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBeerReference.child("name").setValue(mNameEditText.getText().toString());
-                mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
+            save();
 
-                mBeerReference.child("style").setValue(mStyleEditText.getText().toString());
-                mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
-
-                mBeerReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
-                mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
-
-                mBeerReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
-                mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
-
-                mBeerReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
-                mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
-
-                mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
-                mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
-
+            mBasicInfoCardView.setVisibility(View.VISIBLE);
+            mEditCardView.setVisibility(View.GONE);
             }
         });
-
 
         mFabAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +128,6 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
             }
         });
     }
-
 
     @Override
     protected void onStart() {
@@ -179,7 +146,7 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
 //                    String boilVolume = beer.boilVolume + "  L";
 //                    String beerVolume = beer.beerVolume + "  L";
 
-                    String originalGravity  = Double.toString(beer.originalGravity);
+                    originalGravity  = Double.toString(beer.originalGravity);
                     String finalGravity     = Double.toString(beer.finalGravity);
                     String boilVolume       = Double.toString(beer.boilVolume);
                     String beerVolume       = Double.toString(beer.beerVolume);
@@ -192,6 +159,7 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                     mBeerTextView.setText(beerVolume);
 
                     Utility.setBeerImage(mBeerImageView, beer.beerImage);
+                    mNumberDialog = beer.beerImage;
 
                     mCollapsingToolbar.setTitle(beer.name);
 
@@ -226,11 +194,6 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     private void showBeerImageDialog(){
         BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
         beerImageDialogFragment.show(getFragmentManager(), "TAG");
@@ -249,6 +212,8 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
                 onCreateDialog();
                 return true;
             case R.id.action_edit:
+                mBasicInfoCardView.setVisibility(View.GONE);
+                mEditCardView.setVisibility(View.VISIBLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -279,4 +244,59 @@ public class BeerDetailActivity extends BaseActivity implements View.OnClickList
             .show();
     }
 
+    public void save(){
+        mBeerReference.child("name").setValue(mNameEditText.getText().toString());
+        mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
+
+        mBeerReference.child("style").setValue(mStyleEditText.getText().toString());
+        mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
+
+        mBeerReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+        mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+
+        mBeerReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+        mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+
+        mBeerReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
+        mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
+
+        mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+        mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+
+    }
+
+    public void initializeScreen(){
+        mNameTextView   = (TextView) findViewById(R.id.name_detail_textView);
+        mStyleTextView  = (TextView) findViewById(R.id.style_detail_textView);
+        mOGTextView     = (TextView) findViewById(R.id.og_detail_textView);
+        mFGTextView     = (TextView) findViewById(R.id.fg_detail_textView);
+        mBoilTextView   = (TextView) findViewById(R.id.boiling_volume_detail_textView);
+        mBeerTextView   = (TextView) findViewById(R.id.beer_volume_detail_textView);
+
+        mNameEditText   = (EditText) findViewById(R.id.name_detail_edit_text);
+        mStyleEditText  = (EditText) findViewById(R.id.style_detail_edit_text);
+        mOGEditText     = (EditText) findViewById(R.id.og_detail_edit_text);
+        mFGEditText     = (EditText) findViewById(R.id.fg_detail_edit_text);
+        mBoilEditText   = (EditText) findViewById(R.id.boil_volume_detail_edit_text);
+        mBeerEditText   = (EditText) findViewById(R.id.beer_volume_detail_edit_text);
+
+        mBeerImageView  = (ImageView) findViewById(R.id.photo_image_view);
+
+        mFabAddHop  = (FloatingActionButton) findViewById(R.id.add_hop_detail_fab);
+        mFabAddMalt = (FloatingActionButton) findViewById(R.id.add_malt_detail_fab);
+
+        mBasicInfoCardView  = (CardView) findViewById(R.id.basic_info_detail_card_view);
+        mEditCardView       = (CardView) findViewById(R.id.edit_detail_card_view);
+
+        mSaveButton = (Button) findViewById(R.id.save_detail_button);
+    }
+
+    @Override
+    public void onFinishEditDialog(int beerImage) {
+        mNumberDialog = beerImage;
+        Utility.setBeerImage(mBeerImageView, mNumberDialog);
+
+        mBeerReference.child("beerImage").setValue(mNumberDialog);
+        mBeerUserReference.child("beerImage").setValue(mNumberDialog);
+    }
 }

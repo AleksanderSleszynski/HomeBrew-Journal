@@ -23,7 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewBeerActivity extends BaseActivity implements BeerImageDialogFragment.BeerImageDialogListener {
+public class NewBeerActivity extends BaseActivity
+        implements BeerImageDialogFragment.BeerImageDialogListener {
 
     public static final String TAG = "NewBeerActivity";
     public static final String REQUIRED = "Required";
@@ -77,16 +78,10 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
     private void addBeer() {
         final String name   = mNameField.getText().toString();
         final String style  = mStyleField.getText().toString();
-        final String fgS    = mFGField.getText().toString();
-        final String ogS    = mOGField.getText().toString();
-        final String beerVolumeS = mBeerVolumeField.getText().toString();
-        final String boilVolumeS = mBoilVolumeField.getText().toString();
-
-        final Double og = Double.parseDouble(ogS);
-        final Double fg = Double.parseDouble(fgS);
-        final Double beerVolume = Double.parseDouble(beerVolumeS);
-        final Double boilVolume = Double.parseDouble(boilVolumeS);
-
+        String fgS    = mFGField.getText().toString();
+        String ogS    = mOGField.getText().toString();
+        String beerVolumeS = mBeerVolumeField.getText().toString();
+        String boilVolumeS = mBoilVolumeField.getText().toString();
 
         // Name is required
         if(TextUtils.isEmpty(name)){
@@ -94,6 +89,26 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
             return;
         }
 
+        // Style is required
+        if(TextUtils.isEmpty(style)){
+            mStyleField.setError(REQUIRED);
+            return;
+        }
+
+        // If empty set 0
+        if(TextUtils.isEmpty(fgS))
+            fgS = "0";
+        if(TextUtils.isEmpty(ogS))
+            ogS = "0";
+        if(TextUtils.isEmpty(beerVolumeS))
+            beerVolumeS = "0";
+        if(TextUtils.isEmpty(boilVolumeS))
+            boilVolumeS = "0";
+
+        final Double og = Double.parseDouble(ogS);
+        final Double fg = Double.parseDouble(fgS);
+        final Double beerVolume = Double.parseDouble(beerVolumeS);
+        final Double boilVolume = Double.parseDouble(boilVolumeS);
 
         final String userId = getUid();
         mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
@@ -145,7 +160,6 @@ public class NewBeerActivity extends BaseActivity implements BeerImageDialogFrag
     @Override
     public void onFinishEditDialog(int beerImage) {
         mBeerImageDialog = beerImage;
-        Toast.makeText(NewBeerActivity.this, "" + beerImage, Toast.LENGTH_SHORT).show();
         Utility.setBeerImage(mBeerImage, mBeerImageDialog);
     }
 }
