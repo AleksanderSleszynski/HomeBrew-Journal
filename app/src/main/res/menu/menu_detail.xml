@@ -16,5 +16,4 @@
         android:title="@string/delete"
         app:showAsAction="ifRoom" />
 
-
 </menu>

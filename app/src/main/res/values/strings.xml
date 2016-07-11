@@ -51,5 +51,8 @@
     <string name="no">No</string>
     <string name="edit">Edit</string>
     <string name="save">Save</string>
+    <string name="empty_space" />
+    <string name="plato_degree">°P</string>
+    <string name="litre">L</string>
 
 </resources>

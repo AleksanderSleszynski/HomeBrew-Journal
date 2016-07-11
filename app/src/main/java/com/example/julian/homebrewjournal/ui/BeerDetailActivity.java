@@ -101,16 +101,12 @@ public class BeerDetailActivity extends BaseActivity
         // Initialize Views
         initializeScreen();
 
-        mBasicInfoCardView.setVisibility(View.VISIBLE);
-        mEditCardView.setVisibility(View.GONE);
-
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             save();
+            showBasicInfo();
 
-            mBasicInfoCardView.setVisibility(View.VISIBLE);
-            mEditCardView.setVisibility(View.GONE);
             }
         });
 
@@ -184,7 +180,6 @@ public class BeerDetailActivity extends BaseActivity
         mBeerReference.addValueEventListener(beerListener);
     }
 
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -192,11 +187,6 @@ public class BeerDetailActivity extends BaseActivity
             mBeerReference.removeEventListener(mBeerListener);
             mBeerUserReference.removeEventListener(mBeerListener);
         }
-    }
-
-    private void showBeerImageDialog(){
-        BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
-        beerImageDialogFragment.show(getFragmentManager(), "TAG");
     }
 
     @Override
@@ -212,57 +202,11 @@ public class BeerDetailActivity extends BaseActivity
                 onCreateDialog();
                 return true;
             case R.id.action_edit:
-                mBasicInfoCardView.setVisibility(View.GONE);
-                mEditCardView.setVisibility(View.VISIBLE);
+                hideBasicInfo();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void deleteBeer(){
-        mBeerUserReference.removeValue();
-        mBeerReference.removeValue();
-        startActivity(new Intent(this, MainActivity.class));
-        Toast.makeText(BeerDetailActivity.this, R.string.beer_deleted, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onCreateDialog(){
-        new AlertDialog.Builder(this)
-            .setMessage(R.string.dialog_delete_message)
-            .setTitle(R.string.dialog_delete_title)
-            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    deleteBeer();
-                }})
-            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }})
-            .show();
-    }
-
-    public void save(){
-        mBeerReference.child("name").setValue(mNameEditText.getText().toString());
-        mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
-
-        mBeerReference.child("style").setValue(mStyleEditText.getText().toString());
-        mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
-
-        mBeerReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
-        mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
-
-        mBeerReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
-        mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
-
-        mBeerReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
-        mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
-
-        mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
-        mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
-
     }
 
     public void initializeScreen(){
@@ -289,6 +233,69 @@ public class BeerDetailActivity extends BaseActivity
         mEditCardView       = (CardView) findViewById(R.id.edit_detail_card_view);
 
         mSaveButton = (Button) findViewById(R.id.save_detail_button);
+
+        mBasicInfoCardView.setVisibility(View.VISIBLE);
+        mEditCardView.setVisibility(View.GONE);
+    }
+
+    public void deleteBeer(){
+        mBeerUserReference.removeValue();
+        mBeerReference.removeValue();
+        startActivity(new Intent(this, MainActivity.class));
+        Toast.makeText(BeerDetailActivity.this, R.string.beer_deleted, Toast.LENGTH_SHORT).show();
+    }
+
+    public void save(){
+        mBeerReference.child("name").setValue(mNameEditText.getText().toString());
+        mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
+
+        mBeerReference.child("style").setValue(mStyleEditText.getText().toString());
+        mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
+
+        mBeerReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+        mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+
+        mBeerReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+        mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+
+        mBeerReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
+        mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
+
+        mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+        mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+
+    }
+
+    public void showBasicInfo(){
+        mBasicInfoCardView.setVisibility(View.VISIBLE);
+        mEditCardView.setVisibility(View.GONE);
+    }
+
+    public void hideBasicInfo(){
+        mBasicInfoCardView.setVisibility(View.GONE);
+        mEditCardView.setVisibility(View.VISIBLE);
+    }
+
+    public void onCreateDialog(){
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.dialog_delete_message)
+                .setTitle(R.string.dialog_delete_title)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteBeer();
+                    }})
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }})
+                .show();
+    }
+
+    private void showBeerImageDialog(){
+        BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
+        beerImageDialogFragment.show(getFragmentManager(), "TAG");
     }
 
     @Override
@@ -299,4 +306,5 @@ public class BeerDetailActivity extends BaseActivity
         mBeerReference.child("beerImage").setValue(mNumberDialog);
         mBeerUserReference.child("beerImage").setValue(mNumberDialog);
     }
+
 }

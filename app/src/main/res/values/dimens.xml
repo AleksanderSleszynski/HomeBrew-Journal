@@ -38,5 +38,8 @@
     <dimen name="margin_vertical_detail_card_view">8dp</dimen>
     <dimen name="elevation_detail_card_view">8dp</dimen>
     <dimen name="radius_detail_card_view">2dp</dimen>
+    <dimen name="padding_detail_scroll_view">8dp</dimen>
+    <dimen name="margin_detail_column">4dp</dimen>
+
 
 </resources>

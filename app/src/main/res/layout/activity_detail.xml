@@ -45,7 +45,7 @@
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/padding_detail_scroll_view"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -65,137 +65,206 @@
                 app:cardElevation="@dimen/elevation_detail_card_view"
                 app:cardCornerRadius="@dimen/radius_detail_card_view">
 
-                <android.support.v7.widget.GridLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    tools:context=".ui.BeerDetailActivity"
-                    app:columnCount="2">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:id="@+id/label_detail_layout"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/basic_info_detail_textView"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:fontFamily="sans-serif"
-                        app:layout_columnSpan="2"
-                        android:layout_marginBottom="8dp" />
-
-                    <TextView
-                        android:id="@+id/detail_name_label_textView"
-                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_detail_column"
+                        android:layout_marginStart="@dimen/margin_detail_column"
                         android:gravity="start"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/name" />
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/name_detail_textView"
+                        <TextView
+                            android:id="@+id/detail_name_label_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/name" />
+
+                        <TextView
+                            android:id="@+id/detail_style_label_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/style" />
+
+                        <TextView
+                            android:id="@+id/detail_og_label_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="start"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/original_gravity" />
+
+                        <TextView
+                            android:id="@+id/detail_fg_label_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="start"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/final_gravity" />
+
+                        <TextView
+                            android:id="@+id/detail_boiling_volume_label_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="start"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/boiling_volume" />
+
+                        <TextView
+                            android:id="@+id/detail_beer_volume_label_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="start"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/beer_volume" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/value_detail_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/name_detail_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                    <TextView
-                        android:id="@+id/detail_style_label_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/style" />
+                        <TextView
+                            android:id="@+id/style_detail_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                    <TextView
-                        android:id="@+id/style_detail_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                        <TextView
+                            android:id="@+id/og_detail_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
-                    <TextView
-                        android:id="@+id/detail_og_label_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/original_gravity" />
+                        <TextView
+                            android:id="@+id/fg_detail_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
-                    <TextView
-                        android:id="@+id/og_detail_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                        <TextView
+                            android:id="@+id/boiling_volume_detail_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
-                    <TextView
-                        android:id="@+id/detail_fg_label_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/final_gravity" />
+                        <TextView
+                            android:id="@+id/beer_volume_detail_textView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            app:layout_gravity="fill"
+                            android:fontFamily="sans-serif"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/fg_detail_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                    <TextView
-                        android:id="@+id/detail_boiling_volume_label_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/boiling_volume" />
-
-                    <TextView
-                        android:id="@+id/boiling_volume_detail_textView"
+                    <LinearLayout
+                        android:id="@+id/append_detail_layout"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                        android:layout_marginStart="@dimen/margin_detail_column"
+                        android:layout_marginEnd="@dimen/margin_detail_column"
+                        android:layout_marginLeft="@dimen/margin_detail_column"
+                        android:layout_marginRight="@dimen/margin_detail_column"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/detail_beer_volume_label_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/beer_volume" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/empty_space"/>
 
-                    <TextView
-                        android:id="@+id/beer_volume_detail_textView"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        app:layout_gravity="fill"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/empty_space"/>
 
-                </android.support.v7.widget.GridLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/plato_degree"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/plato_degree"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/litre"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/litre"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
