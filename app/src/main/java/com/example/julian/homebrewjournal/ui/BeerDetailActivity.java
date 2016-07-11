@@ -77,6 +77,7 @@ public class BeerDetailActivity extends BaseActivity
 
         mUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
         // Initialize Database
         mBeerReference = FirebaseDatabase.getInstance().getReference()
                 .child("beers").child(mBeerKey);

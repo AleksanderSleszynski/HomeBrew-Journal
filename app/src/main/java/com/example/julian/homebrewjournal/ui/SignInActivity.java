@@ -48,7 +48,11 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         setContentView(R.layout.activity_sign_in);
 
         // Database
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        if(mDatabase == null) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            database.setPersistenceEnabled(true);
+            mDatabase = database.getReference();
+        }
         mAuth     = FirebaseAuth.getInstance();
 
         // Configure Google Sign In
