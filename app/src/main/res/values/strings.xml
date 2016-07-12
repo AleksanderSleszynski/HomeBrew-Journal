@@ -63,5 +63,7 @@
     <string name="gram">g</string>
     <string name="hops_detail_text_view">Hops</string>
     <string name="malts_detail_text_view">Malts</string>
+    <string name="appwidget_text">Add New Beer</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
