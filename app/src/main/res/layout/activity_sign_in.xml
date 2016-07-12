@@ -53,7 +53,7 @@
             android:layout_marginBottom="@dimen/sign_in_margin_vertical" />
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
+            android:id="@+id/sign_in_google_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content" />
 

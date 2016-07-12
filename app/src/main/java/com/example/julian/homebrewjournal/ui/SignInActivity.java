@@ -14,14 +14,18 @@ import android.widget.Toast;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.User;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,9 +33,12 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         View.OnClickListener {
 
     private static final String TAG = "SignInActivity";
+    private static final int RC_SIGN_IN = 9001;
+
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -39,6 +46,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     private EditText mPasswordField;
     private Button mSignInButton;
     private Button mSignUpButton;
+    private Button mSignInGoogleButton;
 
     private ImageView background;
 
@@ -53,7 +61,20 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
             database.setPersistenceEnabled(true);
             mDatabase = database.getReference();
         }
-        mAuth     = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -72,18 +93,28 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         mPasswordField  = (EditText) findViewById(R.id.field_password);
         mSignInButton   = (Button)   findViewById(R.id.button_sign_in);
         mSignUpButton = (Button)   findViewById(R.id.button_sign_up);
+        findViewById(R.id.sign_in_google_button).setOnClickListener(this);
 
         // Click Listeners
         mSignInButton.setOnClickListener(this);
         mSignUpButton.setOnClickListener(this);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        mAuth.addAuthStateListener(mAuthListener);
         if(mAuth.getCurrentUser() != null){
             onAuthSuccess(mAuth.getCurrentUser());
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
@@ -110,6 +141,44 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
                             Toast.makeText(SignInActivity.this, "Sign In Failed",
                                     Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+    }
+
+    private void signInGoogle(){
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+
+        startActivity((new Intent(SignInActivity.this, MainActivity.class)));
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RC_SIGN_IN){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if(result.isSuccess()){
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account){
+        showProgressDialog();
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(SignInActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        hideProgressDialog();
                     }
                 });
     }
@@ -184,6 +253,10 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
                 break;
             case R.id.button_sign_up:
                 signUp();
+                break;
+            case R.id.sign_in_google_button:
+                signInGoogle();
+                Toast.makeText(SignInActivity.this, "Google", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
