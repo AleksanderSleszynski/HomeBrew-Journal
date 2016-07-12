@@ -1,7 +1,18 @@
 package com.example.julian.homebrewjournal.model;
 
-/**
- * Created by julain on 24.03.16.
- */
 public class Hop {
+
+    public String uid;
+    public String name;
+    public double weight;
+
+    public Hop(){
+
+    }
+
+    public Hop(String uid, String name, double weight){
+        this.uid = uid;
+        this.name = name;
+        this.weight = weight;
+    }
 }

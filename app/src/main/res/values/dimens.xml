@@ -41,5 +41,7 @@
     <dimen name="padding_detail_scroll_view">8dp</dimen>
     <dimen name="margin_detail_column">4dp</dimen>
 
+    <!-- Item Hop -->
+    <dimen name="margin_item_hop">4dp</dimen>
 
 </resources>

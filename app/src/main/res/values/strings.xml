@@ -55,4 +55,13 @@
     <string name="plato_degree">°P</string>
     <string name="litre">L</string>
 
+    <!-- Dialog Add Hop-->
+    <string name="dialog_hop_title">Enter name and weight of hop</string>
+    <string name="dialog_malt_title">Enter name and weight of malt</string>
+    <string name="hint_hop_name">Name</string>
+    <string name="hint_hop_weight">Weight</string>
+    <string name="gram">g</string>
+    <string name="hops_detail_text_view">Hops</string>
+    <string name="malts_detail_text_view">Malts</string>
+
 </resources>

@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -64,207 +65,222 @@
                 android:layout_marginTop="@dimen/margin_vertical_detail_card_view"
                 app:cardElevation="@dimen/elevation_detail_card_view"
                 app:cardCornerRadius="@dimen/radius_detail_card_view">
-
-                <LinearLayout
-                    android:orientation="horizontal"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:id="@+id/label_detail_layout"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/basic_info_title_card_view"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_detail_column"
-                        android:layout_marginStart="@dimen/margin_detail_column"
-                        android:gravity="start"
-                        android:orientation="vertical">
+                        android:text="@string/basic_info_detail_textView"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginBottom="8dp" />
 
-                        <TextView
-                            android:id="@+id/detail_name_label_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/name" />
+                    <LinearLayout
+                        android:layout_below="@id/basic_info_title_card_view"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/detail_style_label_textView"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/label_detail_layout"
                             android:layout_width="wrap_content"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/style" />
-
-                        <TextView
-                            android:id="@+id/detail_og_label_textView"
                             android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_detail_column"
+                            android:layout_marginStart="@dimen/margin_detail_column"
                             android:gravity="start"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/original_gravity" />
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/detail_fg_label_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="start"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/final_gravity" />
+                            <TextView
+                                android:id="@+id/detail_name_label_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/name" />
 
-                        <TextView
-                            android:id="@+id/detail_boiling_volume_label_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="start"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/boiling_volume" />
+                            <TextView
+                                android:id="@+id/detail_style_label_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/style" />
 
-                        <TextView
-                            android:id="@+id/detail_beer_volume_label_textView"
+                            <TextView
+                                android:id="@+id/detail_og_label_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="start"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/original_gravity" />
+
+                            <TextView
+                                android:id="@+id/detail_fg_label_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="start"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/final_gravity" />
+
+                            <TextView
+                                android:id="@+id/detail_boiling_volume_label_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="start"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/boiling_volume" />
+
+                            <TextView
+                                android:id="@+id/detail_beer_volume_label_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="start"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/beer_volume" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/value_detail_layout"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/name_detail_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                            <TextView
+                                android:id="@+id/style_detail_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="end"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                            <TextView
+                                android:id="@+id/og_detail_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="end"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/fg_detail_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="end"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/boiling_volume_detail_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="end"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/beer_volume_detail_textView"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:gravity="end"
+                                app:layout_gravity="fill"
+                                android:fontFamily="sans-serif"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/append_detail_layout"
                             android:layout_width="wrap_content"
-                            android:gravity="start"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/beer_volume" />
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:layout_marginStart="@dimen/margin_detail_column"
+                            android:layout_marginEnd="@dimen/margin_detail_column"
+                            android:layout_marginLeft="@dimen/margin_detail_column"
+                            android:layout_marginRight="@dimen/margin_detail_column"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/empty_space"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/empty_space"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/plato_degree"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/plato_degree"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/litre"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/litre"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/value_detail_layout"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/name_detail_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:singleLine="true"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-                        <TextView
-                            android:id="@+id/style_detail_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="end"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-                        <TextView
-                            android:id="@+id/og_detail_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="end"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                        <TextView
-                            android:id="@+id/fg_detail_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="end"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                        <TextView
-                            android:id="@+id/boiling_volume_detail_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="end"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                        <TextView
-                            android:id="@+id/beer_volume_detail_textView"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:gravity="end"
-                            app:layout_gravity="fill"
-                            android:fontFamily="sans-serif"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/append_detail_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:layout_marginStart="@dimen/margin_detail_column"
-                        android:layout_marginEnd="@dimen/margin_detail_column"
-                        android:layout_marginLeft="@dimen/margin_detail_column"
-                        android:layout_marginRight="@dimen/margin_detail_column"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:fontFamily="sans-serif"
-                            android:text="@string/empty_space"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:fontFamily="sans-serif"
-                            android:text="@string/empty_space"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:fontFamily="sans-serif"
-                            android:text="@string/plato_degree"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:fontFamily="sans-serif"
-                            android:text="@string/plato_degree"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:fontFamily="sans-serif"
-                            android:text="@string/litre"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:fontFamily="sans-serif"
-                            android:text="@string/litre"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -362,6 +378,72 @@
                         android:text="@string/save"
                         android:background="@color/colorAccent"/>
                 </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/hops_detail_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginLeft="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginEnd="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginRight="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginTop="@dimen/margin_vertical_detail_card_view"
+                app:cardElevation="@dimen/elevation_detail_card_view"
+                app:cardCornerRadius="@dimen/radius_detail_card_view">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/hops_title_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hops_detail_text_view"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginBottom="8dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_hop"
+                        android:layout_below="@id/hops_title_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/item_ingredient" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/malts_detail_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginLeft="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginEnd="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginRight="@dimen/margin_horizontal_detail_card_view"
+                android:layout_marginTop="@dimen/margin_vertical_detail_card_view"
+                app:cardElevation="@dimen/elevation_detail_card_view"
+                app:cardCornerRadius="@dimen/radius_detail_card_view">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/malts_title_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/malts_detail_text_view"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginBottom="8dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_malt"
+                        android:layout_below="@id/malts_title_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/item_ingredient" />
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
 

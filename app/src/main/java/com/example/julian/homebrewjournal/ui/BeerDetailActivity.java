@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,47 +23,46 @@ import android.widget.Toast;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.model.Beer;
+import com.example.julian.homebrewjournal.model.Hop;
+import com.example.julian.homebrewjournal.model.Malt;
 import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class BeerDetailActivity extends BaseActivity
         implements BeerImageDialogFragment.BeerImageDialogListener {
 
     public static final String TAG = "BeerDetailActivity";
-
     public static final String EXTRA_BEER_KEY = "beer_key";
+    public static final String REQUIRED = "Required";
 
-    private DatabaseReference mBeerReference, mBeerUserReference, mHopsReference;
+    private DatabaseReference mBeerReference, mBeerUserReference, mHopReference, mMaltReference;
     private ValueEventListener mBeerListener;
+    private FirebaseRecyclerAdapter<Hop, IngredientViewHolder> mHopAdapter;
+    private FirebaseRecyclerAdapter<Malt, IngredientViewHolder> mMaltAdapter;
+    private RecyclerView mHopsRecycler, mMaltsRecycler;
 
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbar;
-    private String mBeerKey;
-    private String mUserUid;
-    String originalGravity;
-//    private HopAdapter mAdapter;
+    private String mBeerKey, mUserUid, originalGravity;
 
     private TextView mNameTextView, mStyleTextView, mOGTextView, mFGTextView,
             mBoilTextView, mBeerTextView;
-
     private EditText mNameEditText, mStyleEditText, mOGEditText, mFGEditText, mBoilEditText,
             mBeerEditText;
-
     private ImageView mBeerImageView;
 
-    private FloatingActionButton mFabAddHop;
-    private FloatingActionButton mFabAddMalt;
-
+    private FloatingActionButton mFabAddMalt, mFabAddHop;
     private Button mSaveButton;
 
-    private CardView mBasicInfoCardView;
-    private CardView mEditCardView;
+    private CardView mBasicInfoCardView, mEditCardView;
 
     private int mNumberDialog;
 
@@ -77,21 +79,66 @@ public class BeerDetailActivity extends BaseActivity
 
         mUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
         // Initialize Database
         mBeerReference = FirebaseDatabase.getInstance().getReference()
                 .child("beers").child(mBeerKey);
         mBeerUserReference = FirebaseDatabase.getInstance().getReference()
                 .child("user-beers").child(mUserUid).child(mBeerKey);
+        mHopReference = FirebaseDatabase.getInstance().getReference()
+                .child("hops").child(mBeerKey);
+        mMaltReference = FirebaseDatabase.getInstance().getReference()
+                .child("malts").child(mBeerKey);
 
         // Initialize Toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        // Initialize Views
+        initializeScreen();
 
-        mBeerImageView = (ImageView) findViewById(R.id.photo_image_view);
+        mHopsRecycler.setHasFixedSize(true);
+        mHopsRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        mMaltsRecycler.setHasFixedSize(true);
+        mMaltsRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        Query hopQuery = mHopReference;
+        mHopAdapter = new FirebaseRecyclerAdapter<Hop, IngredientViewHolder>
+                (Hop.class, R.layout.item_ingredient, IngredientViewHolder.class, hopQuery){
+
+            @Override
+            protected void populateViewHolder(IngredientViewHolder viewHolder, Hop model, final int position) {
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mHopAdapter.getRef(position).removeValue();
+                        return false;
+                    }
+                });
+                viewHolder.bindToHop(model);
+            }
+        };
+        mHopsRecycler.setAdapter(mHopAdapter);
+
+        Query maltQuery = mMaltReference;
+        mMaltAdapter = new FirebaseRecyclerAdapter<Malt, IngredientViewHolder>
+                (Malt.class, R.layout.item_ingredient, IngredientViewHolder.class, maltQuery){
+
+            @Override
+            protected void populateViewHolder(IngredientViewHolder viewHolder, Malt model, final int position) {
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mMaltAdapter.getRef(position).removeValue();
+                        return false;
+                    }
+                });
+                viewHolder.bindToMalt(model);
+            }
+        };
+        mMaltsRecycler.setAdapter(mMaltAdapter);
+
         mBeerImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,29 +146,25 @@ public class BeerDetailActivity extends BaseActivity
             }
         });
 
-        // Initialize Views
-        initializeScreen();
-
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             save();
             showBasicInfo();
-
             }
         });
 
         mFabAddHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BeerDetailActivity.this, "HOP", Toast.LENGTH_SHORT).show();
+                onCreateIngredientDialog(getString(R.string.dialog_hop_title), 1);
             }
         });
 
         mFabAddMalt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BeerDetailActivity.this, "malt", Toast.LENGTH_SHORT).show();
+                onCreateIngredientDialog(getString(R.string.dialog_malt_title), 2);
             }
         });
     }
@@ -138,11 +181,6 @@ public class BeerDetailActivity extends BaseActivity
                 Beer beer = dataSnapshot.getValue(Beer.class);
 
                 if(beer !=null) {
-//                    String originalGravity = beer.originalGravity + " " + (char) 0x00B0 + "P";
-//                    String finalGravity = beer.finalGravity + " " + (char) 0x00B0 + "P";
-//                    String boilVolume = beer.boilVolume + "  L";
-//                    String beerVolume = beer.beerVolume + "  L";
-
                     originalGravity  = Double.toString(beer.originalGravity);
                     String finalGravity     = Double.toString(beer.finalGravity);
                     String boilVolume       = Double.toString(beer.boilVolume);
@@ -188,6 +226,7 @@ public class BeerDetailActivity extends BaseActivity
             mBeerReference.removeEventListener(mBeerListener);
             mBeerUserReference.removeEventListener(mBeerListener);
         }
+        mHopAdapter.cleanup();
     }
 
     @Override
@@ -235,13 +274,19 @@ public class BeerDetailActivity extends BaseActivity
 
         mSaveButton = (Button) findViewById(R.id.save_detail_button);
 
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
         mBasicInfoCardView.setVisibility(View.VISIBLE);
         mEditCardView.setVisibility(View.GONE);
+
+        mHopsRecycler = (RecyclerView) findViewById(R.id.recycler_hop);
+        mMaltsRecycler = (RecyclerView) findViewById(R.id.recycler_malt);
     }
 
     public void deleteBeer(){
         mBeerUserReference.removeValue();
         mBeerReference.removeValue();
+        mHopReference.removeValue();
         startActivity(new Intent(this, MainActivity.class));
         Toast.makeText(BeerDetailActivity.this, R.string.beer_deleted, Toast.LENGTH_SHORT).show();
     }
@@ -265,6 +310,40 @@ public class BeerDetailActivity extends BaseActivity
         mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
         mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
 
+    }
+
+    public void addHop(final String name, final Double weight){
+        final String uid = getUid();
+        FirebaseDatabase.getInstance().getReference().child("hops").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Hop hop =  new Hop(uid, name, weight);
+                        mHopReference.push().setValue(hop);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    public void addMalt(final String name, final Double weight){
+        final String uid = getUid();
+        FirebaseDatabase.getInstance().getReference().child("malts").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Malt malt =  new Malt(uid, name, weight);
+                        mMaltReference.push().setValue(malt);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     public void showBasicInfo(){
@@ -294,18 +373,54 @@ public class BeerDetailActivity extends BaseActivity
                 .show();
     }
 
+    public void onCreateIngredientDialog(String title, final int ingredient){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_ingredient, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText nameEditText = (EditText) dialogView.findViewById(R.id.name_dialog_hop_edit_text);
+        final EditText weightEditText = (EditText) dialogView.findViewById(R.id.weight_dialog_hop_edit_text);
+        dialogBuilder.setTitle(title);
+        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final String name = nameEditText.getText().toString();
+                final Double weight = Double.parseDouble(weightEditText.getText().toString());
+
+                if(ingredient == 1) {
+                    addHop(name, weight);
+                } else {
+                    addMalt(name, weight);
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+    }
+
     private void showBeerImageDialog(){
         BeerImageDialogFragment beerImageDialogFragment = BeerImageDialogFragment.newInstance();
         beerImageDialogFragment.show(getFragmentManager(), "TAG");
     }
 
     @Override
-    public void onFinishEditDialog(int beerImage) {
+    public void onFinishEditDialog(int beerImage){
         mNumberDialog = beerImage;
         Utility.setBeerImage(mBeerImageView, mNumberDialog);
 
         mBeerReference.child("beerImage").setValue(mNumberDialog);
         mBeerUserReference.child("beerImage").setValue(mNumberDialog);
+    }
+
+
+    public Query getHopQuery(DatabaseReference databaseReference) {
+        // All my beers
+        return databaseReference.child("hops").child(mBeerKey);
     }
 
 }

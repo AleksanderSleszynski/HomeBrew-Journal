@@ -38,7 +38,7 @@ public class BeerImageDialogFragment extends DialogFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.beer_image_dialog, container);
+        return inflater.inflate(R.layout.dialog_beer_image, container);
     }
 
     @Override

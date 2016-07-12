@@ -68,7 +68,7 @@ public class BeerListFragment extends Fragment {
         // Set up FirebaseRecyclerAdapter with the Query
         Query beerQuery = getQuery(mDatabase);
         mAdapter = new FirebaseRecyclerAdapter<Beer, BeerViewHolder>(Beer.class,
-                R.layout.single_beer, BeerViewHolder.class, beerQuery) {
+                R.layout.item_beer, BeerViewHolder.class, beerQuery) {
             @Override
             protected void populateViewHolder(final BeerViewHolder viewHolder, final Beer model, int position) {
                 final DatabaseReference beerRef = getRef(position);

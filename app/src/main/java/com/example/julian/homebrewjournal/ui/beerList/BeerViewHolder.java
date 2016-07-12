@@ -12,24 +12,24 @@ import com.example.julian.homebrewjournal.model.Beer;
 
 public class BeerViewHolder extends RecyclerView.ViewHolder {
 
-    TextView nameTextView;
-    TextView styleTextView;
+    TextView nameBeerTextView;
+    TextView styleBeerTextView;
 
     ImageView beerImageView;
 
     public BeerViewHolder(View itemView) {
         super(itemView);
 
-        styleTextView   = (TextView) itemView.findViewById(R.id.text_view_beer_style);
-        nameTextView    = (TextView) itemView.findViewById(R.id.text_view_beer_name);
+        styleBeerTextView = (TextView) itemView.findViewById(R.id.text_view_beer_style);
+        nameBeerTextView = (TextView) itemView.findViewById(R.id.text_view_beer_name);
 
         beerImageView   = (ImageView) itemView.findViewById(R.id.logo);
     }
 
 
     public void bindToBeer(Beer beer){
-        nameTextView.setText(beer.name);
-        styleTextView.setText(beer.style);
+        nameBeerTextView.setText(beer.name);
+        styleBeerTextView.setText(beer.style);
         Utility.setBeerImage(beerImageView, beer.beerImage);
     }
 }

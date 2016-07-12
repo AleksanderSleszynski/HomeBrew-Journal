@@ -13,6 +13,6 @@
             android:clipToPadding="false"
             android:padding="5dp"
             android:scrollbars="vertical"
-            tools:listitem="@layout/single_beer" />
+            tools:listitem="@layout/item_beer" />
 
 </RelativeLayout>

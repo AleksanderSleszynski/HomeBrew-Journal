@@ -67,9 +67,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
             .build();
 
 
-//        background  = (ImageView) findViewById(R.id.tlo);
-//        Picasso.with(this).load(R.drawable.home_brew).into(background);
-
         // Views
         mEmailField     = (EditText) findViewById(R.id.field_email);
         mPasswordField  = (EditText) findViewById(R.id.field_password);

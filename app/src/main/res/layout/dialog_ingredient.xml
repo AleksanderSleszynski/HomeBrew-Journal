@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/beer_image_dialog_margin">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/beer_image_dialog_margin"
+        android:hint="@string/hint_hop_name">
+        <EditText
+            android:id="@+id/name_dialog_hop_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/beer_image_dialog_margin"
+        android:hint="@string/hint_hop_weight">
+        <EditText
+            android:id="@+id/weight_dialog_hop_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
