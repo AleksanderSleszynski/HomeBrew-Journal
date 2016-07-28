@@ -36,6 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class BeerDetailActivity extends BaseActivity
         implements BeerImageDialogFragment.BeerImageDialogListener {
 
@@ -47,29 +50,55 @@ public class BeerDetailActivity extends BaseActivity
     private ValueEventListener mBeerListener;
     private FirebaseRecyclerAdapter<Hop, IngredientViewHolder> mHopAdapter;
     private FirebaseRecyclerAdapter<Malt, IngredientViewHolder> mMaltAdapter;
-    private RecyclerView mHopsRecycler, mMaltsRecycler;
 
-    private Toolbar mToolbar;
-    private CollapsingToolbarLayout mCollapsingToolbar;
-    private String mBeerKey, mUserUid, originalGravity;
-
-    private TextView mNameTextView, mStyleTextView, mOGTextView, mFGTextView,
-            mBoilTextView, mBeerTextView;
-    private EditText mNameEditText, mStyleEditText, mOGEditText, mFGEditText, mBoilEditText,
-            mBeerEditText;
-    private ImageView mBeerImageView;
-
-    private FloatingActionButton mFabAddMalt, mFabAddHop;
-    private Button mSaveButton;
-
-    private CardView mBasicInfoCardView, mEditCardView;
+    private String mBeerKey;
+    private String mUserUid;
+    private String name;
+    private String style;
+    private String originalGravity;
+    private String finalGravity;
+    private String boilVolume;
+    private String beerVolume;
+    private String litre = " l";
+    private String plato  = " °P";
 
     private int mNumberDialog;
+
+    @BindView(R.id.recycler_hop)    RecyclerView mHopsRecycler;
+    @BindView(R.id.recycler_malt)   RecyclerView mMaltsRecycler;
+
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout mCollapsingToolbar;
+
+    @BindView(R.id.name_detail_textView)    TextView mNameTextView;
+    @BindView(R.id.style_detail_textView)   TextView mStyleTextView;
+    @BindView(R.id.og_detail_textView)      TextView mOGTextView;
+    @BindView(R.id.fg_detail_textView)      TextView mFGTextView;
+    @BindView(R.id.boil_detail_textView)    TextView mBoilTextView;
+    @BindView(R.id.beer_detail_textView)    TextView mBeerTextView;
+
+    @BindView(R.id.name_detail_edit_text)   EditText mNameEditText;
+    @BindView(R.id.style_detail_edit_text)  EditText mStyleEditText;
+    @BindView(R.id.og_detail_edit_text)     EditText mOGEditText;
+    @BindView(R.id.fg_detail_edit_text)     EditText mFGEditText;
+    @BindView(R.id.boil_detail_edit_text)   EditText mBoilEditText;
+    @BindView(R.id.beer_detail_edit_text)   EditText mBeerEditText;
+
+    @BindView(R.id.photo_image_view)    ImageView mBeerImageView;
+
+    @BindView(R.id.add_hop_detail_fab)  FloatingActionButton mFabAddHop;
+    @BindView(R.id.add_malt_detail_fab) FloatingActionButton mFabAddMalt;
+
+    @BindView(R.id.save_detail_button)  Button mSaveButton;
+
+    @BindView(R.id.basic_info_detail_card_view) CardView mBasicInfoCardView;
+    @BindView(R.id.edit_detail_card_view)       CardView mEditCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
 
         // Get Beer key from Intent
         mBeerKey = getIntent().getStringExtra(EXTRA_BEER_KEY);
@@ -90,7 +119,6 @@ public class BeerDetailActivity extends BaseActivity
                 .child("malts").child(mBeerKey);
 
         // Initialize Toolbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -139,34 +167,6 @@ public class BeerDetailActivity extends BaseActivity
         };
         mMaltsRecycler.setAdapter(mMaltAdapter);
 
-        mBeerImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBeerImageDialog();
-            }
-        });
-
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            save();
-            showBasicInfo();
-            }
-        });
-
-        mFabAddHop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCreateIngredientDialog(getString(R.string.dialog_hop_title), 1);
-            }
-        });
-
-        mFabAddMalt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCreateIngredientDialog(getString(R.string.dialog_malt_title), 2);
-            }
-        });
     }
 
     @Override
@@ -181,25 +181,31 @@ public class BeerDetailActivity extends BaseActivity
                 Beer beer = dataSnapshot.getValue(Beer.class);
 
                 if(beer !=null) {
+                    name             = beer.name;
+                    style            = beer.style;
                     originalGravity  = Double.toString(beer.originalGravity);
-                    String finalGravity     = Double.toString(beer.finalGravity);
-                    String boilVolume       = Double.toString(beer.boilVolume);
-                    String beerVolume       = Double.toString(beer.beerVolume);
+                    finalGravity     = Double.toString(beer.finalGravity);
+                    boilVolume       = Double.toString(beer.boilVolume);
+                    beerVolume       = Double.toString(beer.beerVolume);
 
-                    mNameTextView.setText(beer.name);
-                    mStyleTextView.setText(beer.style);
+                    mNameTextView.setText(name);
+                    mStyleTextView.setText(style);
                     mOGTextView.setText(originalGravity);
+                    mOGTextView.append(plato);
                     mFGTextView.setText(finalGravity);
+                    mFGTextView.append(plato);
                     mBoilTextView.setText(boilVolume);
+                    mBoilTextView.append(litre);
                     mBeerTextView.setText(beerVolume);
+                    mBeerTextView.append(litre);
 
                     Utility.setBeerImage(mBeerImageView, beer.beerImage);
                     mNumberDialog = beer.beerImage;
 
-                    mCollapsingToolbar.setTitle(beer.name);
+                    mCollapsingToolbar.setTitle(name);
 
-                    mNameEditText.setText(beer.name);
-                    mStyleEditText.setText(beer.style);
+                    mNameEditText.setText(name);
+                    mStyleEditText.setText(style);
                     mOGEditText.setText(originalGravity);
                     mFGEditText.setText(finalGravity);
                     mBoilEditText.setText(boilVolume);
@@ -250,37 +256,38 @@ public class BeerDetailActivity extends BaseActivity
     }
 
     public void initializeScreen(){
-        mNameTextView   = (TextView) findViewById(R.id.name_detail_textView);
-        mStyleTextView  = (TextView) findViewById(R.id.style_detail_textView);
-        mOGTextView     = (TextView) findViewById(R.id.og_detail_textView);
-        mFGTextView     = (TextView) findViewById(R.id.fg_detail_textView);
-        mBoilTextView   = (TextView) findViewById(R.id.boiling_volume_detail_textView);
-        mBeerTextView   = (TextView) findViewById(R.id.beer_volume_detail_textView);
-
-        mNameEditText   = (EditText) findViewById(R.id.name_detail_edit_text);
-        mStyleEditText  = (EditText) findViewById(R.id.style_detail_edit_text);
-        mOGEditText     = (EditText) findViewById(R.id.og_detail_edit_text);
-        mFGEditText     = (EditText) findViewById(R.id.fg_detail_edit_text);
-        mBoilEditText   = (EditText) findViewById(R.id.boil_volume_detail_edit_text);
-        mBeerEditText   = (EditText) findViewById(R.id.beer_volume_detail_edit_text);
-
-        mBeerImageView  = (ImageView) findViewById(R.id.photo_image_view);
-
-        mFabAddHop  = (FloatingActionButton) findViewById(R.id.add_hop_detail_fab);
-        mFabAddMalt = (FloatingActionButton) findViewById(R.id.add_malt_detail_fab);
-
-        mBasicInfoCardView  = (CardView) findViewById(R.id.basic_info_detail_card_view);
-        mEditCardView       = (CardView) findViewById(R.id.edit_detail_card_view);
-
-        mSaveButton = (Button) findViewById(R.id.save_detail_button);
-
-        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
         mBasicInfoCardView.setVisibility(View.VISIBLE);
         mEditCardView.setVisibility(View.GONE);
 
-        mHopsRecycler = (RecyclerView) findViewById(R.id.recycler_hop);
-        mMaltsRecycler = (RecyclerView) findViewById(R.id.recycler_malt);
+        mBeerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBeerImageDialog();
+            }
+        });
+
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+                showBasicInfo();
+            }
+        });
+
+        mFabAddHop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCreateIngredientDialog(getString(R.string.dialog_hop_title), 1);
+            }
+        });
+
+        mFabAddMalt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCreateIngredientDialog(getString(R.string.dialog_malt_title), 2);
+            }
+        });
     }
 
     public void deleteBeer(){
@@ -415,12 +422,6 @@ public class BeerDetailActivity extends BaseActivity
 
         mBeerReference.child("beerImage").setValue(mNumberDialog);
         mBeerUserReference.child("beerImage").setValue(mNumberDialog);
-    }
-
-
-    public Query getHopQuery(DatabaseReference databaseReference) {
-        // All my beers
-        return databaseReference.child("hops").child(mBeerKey);
     }
 
 }
