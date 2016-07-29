@@ -15,8 +15,8 @@ import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.VarColumnGridLayoutManager;
 import com.example.julian.homebrewjournal.model.Beer;
 import com.example.julian.homebrewjournal.ui.BeerDetailActivity;
+import com.example.julian.homebrewjournal.ui.MainActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -38,7 +38,6 @@ public class BeerListFragment extends Fragment {
     public BeerListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -98,14 +97,9 @@ public class BeerListFragment extends Fragment {
         }
     }
 
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
-
     public Query getQuery(DatabaseReference databaseReference) {
         // All my beers
-        return databaseReference.child("user-beers")
-                .child(getUid());
+        return databaseReference.child("user-beers").child(((MainActivity)getActivity()).getUid());
     }
 
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * BaseActivity class is used as a base class for all activities in the app
@@ -53,7 +54,12 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public String getUid(){
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public String getUid() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            return user.getUid();
+        } else {
+            return "";
+        }
     }
 }

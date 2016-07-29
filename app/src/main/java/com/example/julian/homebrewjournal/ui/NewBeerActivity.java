@@ -23,6 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NewBeerActivity extends BaseActivity
         implements BeerImageDialogFragment.BeerImageDialogListener {
 
@@ -31,14 +34,14 @@ public class NewBeerActivity extends BaseActivity
 
     private DatabaseReference mDatabase;
 
-    private EditText mNameField;
-    private EditText mStyleField;
-    private EditText mFGField;
-    private EditText mOGField;
-    private EditText mBeerVolumeField;
-    private EditText mBoilVolumeField;
+    @BindView(R.id.name_new_beer_edit_text)  EditText mNameField;
+    @BindView(R.id.style_new_beer_edit_text) EditText mStyleField;
+    @BindView(R.id.fg_new_beer_edit_text)    EditText mFGField;
+    @BindView(R.id.og_new_beer_edit_text)    EditText mOGField;
+    @BindView(R.id.beer_new_beer_edit_text)  EditText mBeerVolumeField;
+    @BindView(R.id.boil_new_beer_edit_text)  EditText mBoilVolumeField;
 
-    private ImageView mBeerImage;
+    @BindView(R.id.beer_image) ImageView mBeerImage;
 
     private int mBeerImageDialog = 1;
 
@@ -46,17 +49,9 @@ public class NewBeerActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_new_beer_);
-
+        ButterKnife.bind(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mNameField  = (EditText) findViewById(R.id.name_new_beer_edit_text);
-        mStyleField = (EditText) findViewById(R.id.style_new_beer_edit_text);
-        mFGField    = (EditText) findViewById(R.id.fg_new_beer_edit_text);
-        mOGField    = (EditText) findViewById(R.id.og_new_beer_edit_text);
-        mBeerVolumeField = (EditText) findViewById(R.id.beer_volume_new_beer_edit_text);
-        mBoilVolumeField = (EditText) findViewById(R.id.boil_volume_new_beer_edit_text);
-
-        mBeerImage = (ImageView) findViewById(R.id.beer_image);
         mBeerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +100,7 @@ public class NewBeerActivity extends BaseActivity
         if(TextUtils.isEmpty(boilVolumeS))
             boilVolumeS = "0";
 
+        // Convert to String to Double
         final Double og = Double.parseDouble(ogS);
         final Double fg = Double.parseDouble(fgS);
         final Double beerVolume = Double.parseDouble(beerVolumeS);
@@ -153,7 +149,6 @@ public class NewBeerActivity extends BaseActivity
         childUpdates.put("/beers/" + key, beerValues);
         childUpdates.put("/user-beers/" + userId + "/" + key, beerValues);
 
-        Log.w(TAG, "We want to add new beer");
         mDatabase.updateChildren(childUpdates);
     }
 

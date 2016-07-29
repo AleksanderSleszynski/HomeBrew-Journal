@@ -223,61 +223,6 @@
                                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
                         </LinearLayout>
 
-                        <!--<LinearLayout-->
-                            <!--android:id="@+id/append_detail_layout"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="end"-->
-                            <!--android:layout_marginStart="@dimen/margin_detail_column"-->
-                            <!--android:layout_marginEnd="@dimen/margin_detail_column"-->
-                            <!--android:layout_marginLeft="@dimen/margin_detail_column"-->
-                            <!--android:layout_marginRight="@dimen/margin_detail_column"-->
-                            <!--android:orientation="vertical">-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Headline"-->
-                                <!--android:fontFamily="sans-serif"-->
-                                <!--android:text="@string/empty_space"/>-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Headline"-->
-                                <!--android:fontFamily="sans-serif"-->
-                                <!--android:text="@string/empty_space"/>-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Headline"-->
-                                <!--android:fontFamily="sans-serif"-->
-                                <!--android:text="@string/plato_degree"/>-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Headline"-->
-                                <!--android:fontFamily="sans-serif"-->
-                                <!--android:text="@string/plato_degree"/>-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Headline"-->
-                                <!--android:fontFamily="sans-serif"-->
-                                <!--android:text="@string/litre"/>-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Headline"-->
-                                <!--android:fontFamily="sans-serif"-->
-                                <!--android:text="@string/litre"/>-->
-
-                        <!--</LinearLayout>-->
-
                     </LinearLayout>
 
                 </RelativeLayout>

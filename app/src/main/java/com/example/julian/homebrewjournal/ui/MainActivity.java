@@ -2,7 +2,6 @@ package com.example.julian.homebrewjournal.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,25 +10,21 @@ import android.view.View;
 import com.example.julian.homebrewjournal.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity {
 
-    private Toolbar mToolbar;
-    private CollapsingToolbarLayout mCollapsingToolbar;
+    @BindView(R.id.app_bar) Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        /**
-         * Link layout elements from XML and setup the toolbar
-         */
-        initializeScreen();
-    }
-
-    public void initializeScreen() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
     }
 
     // Button lunches NewBeerActivity

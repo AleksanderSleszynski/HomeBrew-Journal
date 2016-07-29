@@ -28,7 +28,6 @@ import com.example.julian.homebrewjournal.model.Malt;
 import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -105,8 +104,8 @@ public class BeerDetailActivity extends BaseActivity
         if (mBeerKey == null){
             throw new IllegalArgumentException("Must pass EXTRA_BEER_KEY");
         }
-
-        mUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        // Get user Uid
+        mUserUid = getUid();
 
         // Initialize Database
         mBeerReference = FirebaseDatabase.getInstance().getReference()
@@ -120,7 +119,9 @@ public class BeerDetailActivity extends BaseActivity
 
         // Initialize Toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // Initialize Views
         initializeScreen();
@@ -180,7 +181,7 @@ public class BeerDetailActivity extends BaseActivity
                 // Get Beer object and use the values to update the UI
                 Beer beer = dataSnapshot.getValue(Beer.class);
 
-                if(beer !=null) {
+                if(beer != null) {
                     name             = beer.name;
                     style            = beer.style;
                     originalGravity  = Double.toString(beer.originalGravity);
@@ -191,12 +192,12 @@ public class BeerDetailActivity extends BaseActivity
                     mNameTextView.setText(name);
                     mStyleTextView.setText(style);
                     mOGTextView.setText(originalGravity);
-                    mOGTextView.append(plato);
                     mFGTextView.setText(finalGravity);
-                    mFGTextView.append(plato);
                     mBoilTextView.setText(boilVolume);
-                    mBoilTextView.append(litre);
                     mBeerTextView.setText(beerVolume);
+                    mOGTextView.append(plato);
+                    mFGTextView.append(plato);
+                    mBoilTextView.append(litre);
                     mBeerTextView.append(litre);
 
                     Utility.setBeerImage(mBeerImageView, beer.beerImage);
@@ -215,14 +216,14 @@ public class BeerDetailActivity extends BaseActivity
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
+                // Getting Beer failed, log a message
                 Log.w(TAG, "loadBeer:onCancelled", databaseError.toException());
                 Toast.makeText(BeerDetailActivity.this, "Failed to load beer.",
                         Toast.LENGTH_SHORT).show();
             }
         };
 
-        mBeerReference.addValueEventListener(beerListener);
+        mBeerUserReference.addValueEventListener(beerListener);
     }
 
     @Override
@@ -233,6 +234,7 @@ public class BeerDetailActivity extends BaseActivity
             mBeerUserReference.removeEventListener(mBeerListener);
         }
         mHopAdapter.cleanup();
+        mMaltAdapter.cleanup();
     }
 
     @Override
@@ -290,42 +292,40 @@ public class BeerDetailActivity extends BaseActivity
         });
     }
 
+
+
     public void deleteBeer(){
         mBeerUserReference.removeValue();
         mBeerReference.removeValue();
         mHopReference.removeValue();
+        mMaltReference.removeValue();
         startActivity(new Intent(this, MainActivity.class));
         Toast.makeText(BeerDetailActivity.this, R.string.beer_deleted, Toast.LENGTH_SHORT).show();
     }
 
     public void save(){
+        // Save values to beers
         mBeerReference.child("name").setValue(mNameEditText.getText().toString());
-        mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
-
         mBeerReference.child("style").setValue(mStyleEditText.getText().toString());
-        mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
-
         mBeerReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
-        mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
-
         mBeerReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
-        mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
-
         mBeerReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
-        mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
-
         mBeerReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
+        // Save values to user-beers
+        mBeerUserReference.child("name").setValue(mNameEditText.getText().toString());
+        mBeerUserReference.child("style").setValue(mStyleEditText.getText().toString());
+        mBeerUserReference.child("originalGravity").setValue(Double.parseDouble(mOGEditText.getText().toString()));
+        mBeerUserReference.child("finalGravity").setValue(Double.parseDouble(mFGEditText.getText().toString()));
+        mBeerUserReference.child("beerVolume").setValue(Double.parseDouble(mBeerEditText.getText().toString()));
         mBeerUserReference.child("boilVolume").setValue(Double.parseDouble(mBoilEditText.getText().toString()));
-
     }
 
     public void addHop(final String name, final Double weight){
-        final String uid = getUid();
-        FirebaseDatabase.getInstance().getReference().child("hops").child(uid)
+        FirebaseDatabase.getInstance().getReference().child("hops").child(mUserUid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Hop hop =  new Hop(uid, name, weight);
+                        Hop hop =  new Hop(mUserUid, name, weight);
                         mHopReference.push().setValue(hop);
                     }
 
@@ -337,12 +337,11 @@ public class BeerDetailActivity extends BaseActivity
     }
 
     public void addMalt(final String name, final Double weight){
-        final String uid = getUid();
-        FirebaseDatabase.getInstance().getReference().child("malts").child(uid)
+        FirebaseDatabase.getInstance().getReference().child("malts").child(mUserUid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Malt malt =  new Malt(uid, name, weight);
+                        Malt malt =  new Malt(mUserUid, name, weight);
                         mMaltReference.push().setValue(malt);
                     }
 

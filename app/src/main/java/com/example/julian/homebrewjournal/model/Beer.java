@@ -17,9 +17,6 @@ public class Beer {
     public double boilVolume;
 
     public int beerImage;
-//    private String hops;
-//    private String malts;
-//    private String other;
 //    private String mashing;
 //    private String boiling;
 //    private String fermenting;

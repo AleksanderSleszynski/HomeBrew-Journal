@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_volume">
                 <EditText
-                    android:id="@+id/beer_volume_new_beer_edit_text"
+                    android:id="@+id/beer_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"/>
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_boil_volume">
                 <EditText
-                    android:id="@+id/boil_volume_new_beer_edit_text"
+                    android:id="@+id/boil_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"/>
