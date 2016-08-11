@@ -48,7 +48,7 @@ public class NewBeerActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activty_new_beer_);
+        setContentView(R.layout.activty_new_beer);
         ButterKnife.bind(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
