@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.julian.homebrewjournal.R;
@@ -18,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,8 +28,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
-        View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class SignInActivity extends BaseActivity
+        implements GoogleApiClient.OnConnectionFailedListener/*, View.OnClickListener*/ {
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -42,23 +45,32 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
 
     private GoogleApiClient mGoogleApiClient;
 
-    private EditText mEmailField;
-    private EditText mPasswordField;
-    private Button mSignInButton;
-    private Button mSignUpButton;
-    private Button mSignInGoogleButton;
+    @BindView(R.id.field_email)    EditText mEmailField;
+    @BindView(R.id.field_password) EditText mPasswordField;
+    @BindView(R.id.button_sign_in) Button mSignInButton;
+    @BindView(R.id.button_sign_up) Button mSignUpButton;
+    @BindView(R.id.sign_in_google) SignInButton mSignInGoogleButton;
 
-    private ImageView background;
+    @OnClick(R.id.button_sign_in) void onSignIn(){
+        signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+    }
+
+    @OnClick(R.id.button_sign_up) void onCreateAccount(){
+        createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+    }
+
+    @OnClick(R.id.sign_in_google) void onGoogleSignIn(){
+        signInGoogle();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        ButterKnife.bind(this);
 
-        // Database
         if(mDatabase == null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            database.setPersistenceEnabled(true);
             mDatabase = database.getReference();
         }
         mAuth = FirebaseAuth.getInstance();
@@ -87,27 +99,15 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build();
 
-
-        // Views
-        mEmailField     = (EditText) findViewById(R.id.field_email);
-        mPasswordField  = (EditText) findViewById(R.id.field_password);
-        mSignInButton   = (Button)   findViewById(R.id.button_sign_in);
-        mSignUpButton = (Button)   findViewById(R.id.button_sign_up);
-        findViewById(R.id.sign_in_google_button).setOnClickListener(this);
-
-        // Click Listeners
-        mSignInButton.setOnClickListener(this);
-        mSignUpButton.setOnClickListener(this);
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        if(mAuth.getCurrentUser() != null){
-            onAuthSuccess(mAuth.getCurrentUser());
-        }
+//        if(mAuth.getCurrentUser() != null){
+//            onAuthSuccess(mAuth.getCurrentUser());
+//        }
     }
 
     @Override
@@ -118,15 +118,39 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         }
     }
 
-    private void signIn(){
+    private void createAccount(String email, String password) {
+        Log.d(TAG, "createAccount");
+        if (!validateForm()) {
+            return;
+        }
+
+        showProgressDialog();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUser:onComplete" + task.isSuccessful());
+                        hideProgressDialog();
+
+
+                        if (task.isSuccessful()) {
+                            onAuthSuccess(task.getResult().getUser());
+                        } else {
+                            Toast.makeText(SignInActivity.this, "Sign Up Failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void signIn(String email, String password){
         Log.d(TAG, "signIn");
         if (!validateForm()) {
             return;
         }
 
         showProgressDialog();
-        String email = mEmailField.getText().toString();
-        String password = mPasswordField.getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -148,9 +172,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     private void signInGoogle(){
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
-        startActivity((new Intent(SignInActivity.this, MainActivity.class)));
-        finish();
     }
 
     @Override
@@ -161,12 +182,14 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
+                fireBaseAuthWithGoogle(account);
             }
+        } else {
+            Log.e(TAG,"Google Sign In failed");
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account){
+    private void fireBaseAuthWithGoogle(GoogleSignInAccount account){
         showProgressDialog();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
@@ -177,39 +200,16 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
                         if (!task.isSuccessful()){
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        }
-                        hideProgressDialog();
-                    }
-                });
-    }
-
-    private void signUp() {
-        Log.d(TAG, "signUp");
-        if (!validateForm()) {
-            return;
-        }
-
-        showProgressDialog();
-        String email = mEmailField.getText().toString();
-        String password = mPasswordField.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUser:oncomplete" + task.isSuccessful());
-                        hideProgressDialog();
-
-
-                        if (task.isSuccessful()) {
-                            onAuthSuccess(task.getResult().getUser());
                         } else {
-                            Toast.makeText(SignInActivity.this, "Sign Up Failed",
-                                    Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                            finish();
                         }
+                        hideProgressDialog();
                     }
                 });
     }
+
+
 
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
@@ -243,22 +243,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         User user = new User(name, email);
 
         mDatabase.child("users").child(userId).setValue(user);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button_sign_in:
-                signIn();
-                break;
-            case R.id.button_sign_up:
-                signUp();
-                break;
-            case R.id.sign_in_google_button:
-                signInGoogle();
-                Toast.makeText(SignInActivity.this, "Google", Toast.LENGTH_SHORT).show();
-                break;
-        }
     }
 
     @Override
