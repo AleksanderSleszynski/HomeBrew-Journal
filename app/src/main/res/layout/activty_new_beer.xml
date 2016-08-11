@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_name">
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/name_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_style">
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/style_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_FG">
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/fg_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_OG">
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/og_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_volume">
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/beer_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_beer_boil_volume">
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/boil_new_beer_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
