@@ -1,12 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimary">@color/amber</color>
     <color name="colorPrimaryDark">#FFA000</color>
     <color name="colorPrimaryLight">#FFE082</color>
     <color name="colorPrimaryLow">#aaffc107</color>
-    <color name="colorPrimaryLightLow">#8cffe082</color>
+    <color name="colorPrimaryLightLow">#beffe082</color>
     <color name="colorAccent">#3D5AFE</color>
     <color name="black">#000000</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Background Colors -->
+    <color name="red">#F44336</color>
+    <color name="blue">#2196F3</color>
+    <color name="green">#4CAF50</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="brown">#795548</color>
+    <color name="orange">#FF5722</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="purple">#9C27B0</color>
+    <color name="amber">#FFC107</color>
+
+    <array name="background_colors">
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/indigo</item>
+        <item>@color/brown</item>
+        <item>@color/orange</item>
+        <item>@color/cyan</item>
+        <item>@color/purple</item>
+        <item>@color/amber</item>
+    </array>
+
+    <!-- Beer Colors -->
+    <color name="glass">#736754</color>
+    <color name="beer">@color/stout_beer</color>
+    <color name="foam">@color/stout_foam</color>
+    <color name="bubble">@color/stout_bubble</color>
+
+    <!-- Style Colors-->
+    <color name="ale_beer">#fac650</color>
+    <color name="ale_bubble">#fde598</color>
+    <color name="ale_foam">#faf3d7</color>
+
+    <color name="ipa_beer">#b04f00</color>
+    <color name="ipa_bubble">#fc9b4c</color>
+    <color name="ipa_foam">#faf3d7</color>
+
+    <color name="porter_beer">#222126</color>
+    <color name="porter_bubble">#493b32</color>
+    <color name="porter_foam">#d0b280</color>
+
+    <color name="red_beer">#670f01</color>
+    <color name="red_bubble">#b34938</color>
+    <color name="red_foam">#faf3d7</color>
+
+    <color name="stout_beer">#2a291e</color>
+    <color name="stout_bubble">#917c5f</color>
+    <color name="stout_foam">#dec7a7</color>
+
+    <color name="weizen_beer">#fbc751</color>
+    <color name="weizen_bubble">#ffe596</color>
+    <color name="weizen_foam">#faf3d7</color>
+
+    <array name="beer_color_array">
+        <item>@color/ale_beer</item>
+        <item>@color/ipa_beer</item>
+        <item>@color/porter_beer</item>
+        <item>@color/red_beer</item>
+        <item>@color/stout_beer</item>
+        <item>@color/weizen_beer</item>
+    </array>
+
+    <array name="bubble_color_array">
+        <item>@color/ale_bubble</item>
+        <item>@color/ipa_bubble</item>
+        <item>@color/porter_bubble</item>
+        <item>@color/red_bubble</item>
+        <item>@color/stout_bubble</item>
+        <item>@color/weizen_bubble</item>
+    </array>
+
+    <array name="foam_color_array">
+        <item>@color/ale_foam</item>
+        <item>@color/ipa_foam</item>
+        <item>@color/porter_foam</item>
+        <item>@color/red_foam</item>
+        <item>@color/stout_foam</item>
+        <item>@color/weizen_foam</item>
+    </array>
+    
 </resources>
