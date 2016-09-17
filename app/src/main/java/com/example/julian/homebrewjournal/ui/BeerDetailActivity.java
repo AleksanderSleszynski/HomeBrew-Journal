@@ -104,69 +104,12 @@ public class BeerDetailActivity extends BaseActivity
         if (mBeerKey == null){
             throw new IllegalArgumentException("Must pass EXTRA_BEER_KEY");
         }
+
         // Get user Uid
         mUserUid = getUid();
 
-        // Initialize Database
-        mBeerReference = FirebaseDatabase.getInstance().getReference()
-                .child("beers").child(mBeerKey);
-        mBeerUserReference = FirebaseDatabase.getInstance().getReference()
-                .child("user-beers").child(mUserUid).child(mBeerKey);
-        mHopReference = FirebaseDatabase.getInstance().getReference()
-                .child("hops").child(mBeerKey);
-        mMaltReference = FirebaseDatabase.getInstance().getReference()
-                .child("malts").child(mBeerKey);
-
-        // Initialize Toolbar
-        setSupportActionBar(mToolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        // Initialize Views
+        initializeDatabase();
         initializeScreen();
-
-        mHopsRecycler.setHasFixedSize(true);
-        mHopsRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-        mMaltsRecycler.setHasFixedSize(true);
-        mMaltsRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-        Query hopQuery = mHopReference;
-        mHopAdapter = new FirebaseRecyclerAdapter<Hop, IngredientViewHolder>
-                (Hop.class, R.layout.item_ingredient, IngredientViewHolder.class, hopQuery){
-
-            @Override
-            protected void populateViewHolder(IngredientViewHolder viewHolder, Hop model, final int position) {
-                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        mHopAdapter.getRef(position).removeValue();
-                        return false;
-                    }
-                });
-                viewHolder.bindToHop(model);
-            }
-        };
-        mHopsRecycler.setAdapter(mHopAdapter);
-
-        Query maltQuery = mMaltReference;
-        mMaltAdapter = new FirebaseRecyclerAdapter<Malt, IngredientViewHolder>
-                (Malt.class, R.layout.item_ingredient, IngredientViewHolder.class, maltQuery){
-
-            @Override
-            protected void populateViewHolder(IngredientViewHolder viewHolder, Malt model, final int position) {
-                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        mMaltAdapter.getRef(position).removeValue();
-                        return false;
-                    }
-                });
-                viewHolder.bindToMalt(model);
-            }
-        };
-        mMaltsRecycler.setAdapter(mMaltAdapter);
 
     }
 
@@ -263,6 +206,12 @@ public class BeerDetailActivity extends BaseActivity
 
     public void initializeScreen(){
 
+        // Initialize Toolbar
+        setSupportActionBar(mToolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         mBasicInfoCardView.setVisibility(View.VISIBLE);
         mEditCardView.setVisibility(View.GONE);
 
@@ -294,9 +243,60 @@ public class BeerDetailActivity extends BaseActivity
                 onCreateIngredientDialog(getString(R.string.dialog_malt_title), 2);
             }
         });
+
+        mHopsRecycler.setHasFixedSize(true);
+        mHopsRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        mMaltsRecycler.setHasFixedSize(true);
+        mMaltsRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        Query hopQuery = mHopReference;
+        mHopAdapter = new FirebaseRecyclerAdapter<Hop, IngredientViewHolder>
+                (Hop.class, R.layout.item_ingredient, IngredientViewHolder.class, hopQuery){
+
+            @Override
+            protected void populateViewHolder(IngredientViewHolder viewHolder, Hop model, final int position) {
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mHopAdapter.getRef(position).removeValue();
+                        return false;
+                    }
+                });
+                viewHolder.bindToHop(model);
+            }
+        };
+        mHopsRecycler.setAdapter(mHopAdapter);
+
+        Query maltQuery = mMaltReference;
+        mMaltAdapter = new FirebaseRecyclerAdapter<Malt, IngredientViewHolder>
+                (Malt.class, R.layout.item_ingredient, IngredientViewHolder.class, maltQuery){
+
+            @Override
+            protected void populateViewHolder(IngredientViewHolder viewHolder, Malt model, final int position) {
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mMaltAdapter.getRef(position).removeValue();
+                        return false;
+                    }
+                });
+                viewHolder.bindToMalt(model);
+            }
+        };
+        mMaltsRecycler.setAdapter(mMaltAdapter);
     }
 
-
+    public void initializeDatabase(){
+        mBeerReference = FirebaseDatabase.getInstance().getReference().child("beers")
+                .child(mBeerKey);
+        mBeerUserReference = FirebaseDatabase.getInstance().getReference().child("user-beers")
+                .child(mUserUid).child(mBeerKey);
+        mHopReference = FirebaseDatabase.getInstance().getReference().child("hops")
+                .child(mBeerKey);
+        mMaltReference = FirebaseDatabase.getInstance().getReference().child("malts")
+                .child(mBeerKey);
+    }
 
     public void deleteBeer(){
         mBeerUserReference.removeValue();

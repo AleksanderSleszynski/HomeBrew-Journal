@@ -9,11 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
 import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.Utility;
 import com.example.julian.homebrewjournal.model.Beer;
-import com.example.julian.homebrewjournal.model.User;
+import com.example.julian.homebrewjournal.ui.dialog.BeerImageDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,10 +72,10 @@ public class NewBeerActivity extends BaseActivity
     }
 
     private void addBeer() {
-        final String name   = mNameField.getText().toString();
-        final String style  = mStyleField.getText().toString();
-        String fgS    = mFGField.getText().toString();
-        String ogS    = mOGField.getText().toString();
+        final String name  = mNameField.getText().toString();
+        final String style = mStyleField.getText().toString();
+        String fgS = mFGField.getText().toString();
+        String ogS = mOGField.getText().toString();
         String beerVolumeS = mBeerVolumeField.getText().toString();
         String boilVolumeS = mBoilVolumeField.getText().toString();
 
@@ -112,7 +113,7 @@ public class NewBeerActivity extends BaseActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get user value
-                User user = dataSnapshot.getValue(User.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if(user == null){
                     // User is null, error out
@@ -122,8 +123,9 @@ public class NewBeerActivity extends BaseActivity
                 } else {
                     // Add new beer
                     Log.e(TAG, "User " + userId + " adding new beer");
-                    addNewBeer(userId, user.username, name, style, fg, og, beerVolume, boilVolume,
+                    addNewBeer(userId, user.getDisplayName(), name, style, fg, og, beerVolume, boilVolume,
                             mBeerImageDialog);
+                    Log.e(TAG, user.getDisplayName() + " ...");
                 }
 
                 finish();

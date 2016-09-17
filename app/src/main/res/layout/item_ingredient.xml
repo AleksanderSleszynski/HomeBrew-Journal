@@ -6,7 +6,7 @@
     android:layout_margin="@dimen/margin_item_hop">
 
     <TextView
-        android:id="@+id/name_item_hop_text_View"
+        android:id="@+id/name_item_ingredient_text_view"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"

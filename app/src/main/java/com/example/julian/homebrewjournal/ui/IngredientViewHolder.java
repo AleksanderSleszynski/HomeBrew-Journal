@@ -8,17 +8,19 @@ import com.example.julian.homebrewjournal.R;
 import com.example.julian.homebrewjournal.model.Hop;
 import com.example.julian.homebrewjournal.model.Malt;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView nameIngredientTextView;
-    public TextView weightIngredientTextView;
+    @BindView(R.id.name_item_ingredient_text_view)   TextView nameIngredientTextView;
+    @BindView(R.id.weight_item_ingredient_text_view) TextView weightIngredientTextView;
+
     private String weight;
 
     public IngredientViewHolder(View itemView) {
         super(itemView);
-
-        nameIngredientTextView = (TextView) itemView.findViewById(R.id.name_item_hop_text_View);
-        weightIngredientTextView = (TextView) itemView.findViewById(R.id.weight_item_hop_text_View);
+        ButterKnife.bind(this, itemView);
     }
 
     public void bindToHop(Hop hop){
