@@ -22,19 +22,6 @@
     <color name="purple">#9C27B0</color>
     <color name="amber">#FFC107</color>
 
-    <array name="background_colors">
-        <item>@color/red</item>
-        <item>@color/blue</item>
-        <item>@color/green</item>
-        <item>@color/yellow</item>
-        <item>@color/indigo</item>
-        <item>@color/brown</item>
-        <item>@color/orange</item>
-        <item>@color/cyan</item>
-        <item>@color/purple</item>
-        <item>@color/amber</item>
-    </array>
-
     <!-- Beer Colors -->
     <color name="glass">#736754</color>
     <color name="beer">@color/stout_beer</color>
@@ -66,31 +53,4 @@
     <color name="weizen_bubble">#ffe596</color>
     <color name="weizen_foam">#faf3d7</color>
 
-    <array name="beer_color_array">
-        <item>@color/ale_beer</item>
-        <item>@color/ipa_beer</item>
-        <item>@color/porter_beer</item>
-        <item>@color/red_beer</item>
-        <item>@color/stout_beer</item>
-        <item>@color/weizen_beer</item>
-    </array>
-
-    <array name="bubble_color_array">
-        <item>@color/ale_bubble</item>
-        <item>@color/ipa_bubble</item>
-        <item>@color/porter_bubble</item>
-        <item>@color/red_bubble</item>
-        <item>@color/stout_bubble</item>
-        <item>@color/weizen_bubble</item>
-    </array>
-
-    <array name="foam_color_array">
-        <item>@color/ale_foam</item>
-        <item>@color/ipa_foam</item>
-        <item>@color/porter_foam</item>
-        <item>@color/red_foam</item>
-        <item>@color/stout_foam</item>
-        <item>@color/weizen_foam</item>
-    </array>
-    
 </resources>

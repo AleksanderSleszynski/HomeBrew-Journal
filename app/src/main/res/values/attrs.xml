@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <declare-styleable name="Beer">
+        <attr name="beer" format="color"/>
+        <attr name="bubble" format="color"/>
+        <attr name="foam" format="color"/>
+    </declare-styleable>
+</resources>

@@ -246,6 +246,10 @@ public class BeerDetailActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_customize:
+                //ToDo: Implement ActivityForResult
+                startActivityForResult(new Intent(this, CustomizeLogoActivity.class), 1);
+                return true;
             case R.id.action_delete:
                 onCreateDialog();
                 return true;

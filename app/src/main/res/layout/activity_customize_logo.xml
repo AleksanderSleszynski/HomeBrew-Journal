@@ -1,13 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.julian.homebrewjournal.ui.CustomizeLogoActivity">
+
+    <FrameLayout
+        android:id="@+id/customize_logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <View
+            android:id="@+id/customize_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"/>
+
+        <ImageView
+            android:id="@+id/customize_beer_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/glass_imperial_pint"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/customize_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+
+        <Button
+            android:id="@+id/change_background_color_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Background Left"/>
+
+        <Button
+            android:id="@+id/change_background_color_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Background Right"/>
+
+        <Button
+            android:id="@+id/change_beer_color_button_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COLORL"/>
+
+        <Button
+            android:id="@+id/change_beer_color_button_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COLORR"/>
+
+        <Button
+            android:id="@+id/change_beer_glass_button_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GLASSL"/>
+
+        <Button
+            android:id="@+id/change_beer_glass_button_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GLASSR"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -65,5 +65,6 @@
     <string name="malts_detail_text_view">Malts</string>
     <string name="appwidget_text">Add New Beer</string>
     <string name="add_widget">Add widget</string>
+    <string name="customize">Customize Beer Logo</string>
 
 </resources>

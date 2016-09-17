@@ -5,4 +5,41 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="ale">
+        <item name="beer">@color/ale_beer</item>
+        <item name="bubble">@color/ale_bubble</item>
+        <item name="foam">@color/ale_foam</item>
+    </style>
+
+    <style name="ipa">
+        <item name="beer">@color/ipa_beer</item>
+        <item name="bubble">@color/ipa_bubble</item>
+        <item name="foam">@color/ipa_foam</item>
+    </style>
+
+    <style name="porter">
+        <item name="beer">@color/porter_beer</item>
+        <item name="bubble">@color/porter_bubble</item>
+        <item name="foam">@color/porter_foam</item>
+    </style>
+
+    <style name="red">
+        <item name="beer">@color/red_beer</item>
+        <item name="bubble">@color/red_bubble</item>
+        <item name="foam">@color/red_foam</item>
+    </style>
+
+    <style name="stout">
+        <item name="beer">@color/stout_beer</item>
+        <item name="bubble">@color/stout_bubble</item>
+        <item name="foam">@color/stout_foam</item>
+    </style>
+
+    <style name="weizen">
+        <item name="beer">@color/weizen_beer</item>
+        <item name="bubble">@color/weizen_bubble</item>
+        <item name="foam">@color/weizen_foam</item>
+    </style>
+
 </resources>
