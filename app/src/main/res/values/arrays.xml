@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="background_colors">
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/indigo</item>
+        <item>@color/brown</item>
+        <item>@color/orange</item>
+        <item>@color/cyan</item>
+        <item>@color/purple</item>
+        <item>@color/amber</item>
+    </array>
+
+    <integer-array name="glasses">
+        <item>@drawable/glass_imperial_pint</item>
+        <item>@drawable/glass_mug</item>
+        <item>@drawable/glass_nonic_pint</item>
+        <item>@drawable/glass_shaker_pint</item>
+        <item>@drawable/glass_snifter</item>
+        <item>@drawable/glass_tulip</item>
+        <item>@drawable/glass_weizen</item>
+    </integer-array>
+
+    <integer-array name="styles">
+        <item>@style/ale</item>
+        <item>@style/ipa</item>
+        <item>@style/porter</item>
+        <item>@style/red</item>
+        <item>@style/weizen</item>
+    </integer-array>
+
+</resources>
