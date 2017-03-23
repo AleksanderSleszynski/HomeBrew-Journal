@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    private static final String TAG = "BaseActivity";
     protected GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
 
