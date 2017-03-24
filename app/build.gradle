@@ -39,7 +39,7 @@ android {
         }
     }
 
-    productFlavors{
+    productFlavors {
         //mock
 
         //prod
@@ -63,8 +63,7 @@ dependencies {
     compile "com.android.support:gridlayout-v7:$rootProject.supportLibraryVersion"
     compile "com.google.android.gms:play-services-auth:$rootProject.playServicesVersion"
 
-    compile 'com.facebook.android:facebook-android-sdk:4.14.1'
-//    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
+    //    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
 //        transitive = true
 //    }
     // FireBase
@@ -73,7 +72,6 @@ dependencies {
     compile "com.firebaseui:firebase-ui-database:$rootProject.firebaseUiVersion"
 
 //    compile 'com.firebaseui:firebase-ui-auth:1.0.0'
-
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"
@@ -89,7 +87,7 @@ dependencies {
     // Espresso UI Testing dependencies.
     androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
-    androidTestCompile ("com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"){
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion") {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
@@ -100,8 +98,10 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
 
+    compile 'com.facebook.android:facebook-android-sdk:4.14.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.android.support:support-v4:25.3.0'
 }
-
 
 /*
 Resolves dependency versions across test and production APKs, specifically, transitive
