@@ -4,13 +4,13 @@ apply plugin: 'android-apt'
 
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
 
     defaultConfig {
         applicationId "com.example.julian.homebrewjournal"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
@@ -55,49 +55,48 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:customtabs:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:gridlayout-v7:$rootProject.supportLibraryVersion"
-    compile "com.google.android.gms:play-services-auth:$rootProject.playServicesVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibrary"
+    compile "com.android.support:customtabs:$rootProject.supportLibrary"
+    compile "com.android.support:design:$rootProject.supportLibrary"
+    compile "com.android.support:cardview-v7:$rootProject.supportLibrary"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibrary"
+    compile "com.android.support:gridlayout-v7:$rootProject.supportLibrary"
+    compile "com.google.android.gms:play-services-auth:$rootProject.playServices"
 
-    //    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
-//        transitive = true
-//    }
+    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
+        transitive = true
+    }
+
     // FireBase
-    compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
-    compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
-    compile "com.firebaseui:firebase-ui-database:$rootProject.firebaseUiVersion"
-
-//    compile 'com.firebaseui:firebase-ui-auth:1.0.0'
+    compile "com.google.firebase:firebase-auth:$rootProject.firebase"
+    compile "com.google.firebase:firebase-database:$rootProject.firebase"
+    compile "com.firebaseui:firebase-ui-database:$rootProject.firebaseUI"
+    compile "com.firebaseui:firebase-ui-auth:$rootProject.firebaseUI"
 
     // Dependencies for local unit tests
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
-    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
-    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+    testCompile "junit:junit:$rootProject.ext.junit"
+    testCompile "org.mockito:mockito-all:$rootProject.ext.mockito"
+    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrest"
     testCompile "org.powermock:powermock-module-junit4:$rootProject.ext.powerMockito"
     testCompile "org.powermock:powermock-api-mockito:$rootProject.ext.powerMockito"
 
     // Android Testing Support Library's runner and rules
-    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runner"
+    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rules"
 
     // Espresso UI Testing dependencies.
-    androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
-    androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion") {
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espresso"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espresso"
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espresso") {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
     // Other
-    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
-    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
-    compile "com.getbase:floatingactionbutton:$rootProject.fabVersion"
-    compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
-    apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-
+    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espresso"
+    compile "com.squareup.picasso:picasso:$rootProject.picasso"
+    compile "com.getbase:floatingactionbutton:$rootProject.fab"
+    compile "com.jakewharton:butterknife:$rootProject.butterknife"
+    apt "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
     compile 'com.facebook.android:facebook-android-sdk:4.14.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.android.support:support-v4:25.3.0'
@@ -108,7 +107,7 @@ Resolves dependency versions across test and production APKs, specifically, tran
 dependencies. This is required since Espresso internally has a dependency on support-annotations.
 */
 configurations.all {
-    resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
+    resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibrary"
 }
 
 /*
