@@ -40,11 +40,23 @@ android {
     }
 
     productFlavors {
-        //mock
+        mock {
+            applicationIdSuffix = ".mock"
+        }
 
-        //prod
-
+        prod {
+            applicationIdSuffix = ".prod"
+        }
     }
+
+    //remove mockRelease build variant because we don't need it
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true);
+        }
+    }
+
     // Always show the result of every unit test, even if it passes.
     testOptions.unitTests.all {
         testLogging {
@@ -55,6 +67,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android
+    compile "com.android.support:support-v4:$rootProject.supportLibrary"
     compile "com.android.support:appcompat-v7:$rootProject.supportLibrary"
     compile "com.android.support:customtabs:$rootProject.supportLibrary"
     compile "com.android.support:design:$rootProject.supportLibrary"
@@ -62,7 +75,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibrary"
     compile "com.android.support:gridlayout-v7:$rootProject.supportLibrary"
     compile "com.google.android.gms:play-services-auth:$rootProject.playServices"
-
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
         transitive = true
     }
@@ -98,8 +111,6 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterknife"
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
     compile 'com.facebook.android:facebook-android-sdk:4.14.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    compile 'com.android.support:support-v4:25.3.0'
 }
 
 /*

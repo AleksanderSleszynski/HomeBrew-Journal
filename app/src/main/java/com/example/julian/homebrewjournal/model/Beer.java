@@ -7,16 +7,16 @@ import java.util.Map;
 
 public class Beer {
 
-    private String uid;
-    private String username;
-    private String name;
-    private String style;
-    private double finalGravity;
-    private double originalGravity;
-    private double beerVolume;
-    private double boilVolume;
+    public String uid;
+    public String username;
+    public String name;
+    public String style;
+    public double finalGravity;
+    public double originalGravity;
+    public double beerVolume;
+    public double boilVolume;
 
-    private int beerImage;
+    public int beerImage;
 //    private String mashing;
 //    private String boiling;
 //    private String fermenting;
