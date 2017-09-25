@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 //apply plugin: 'io.fabric'
 
 
@@ -52,6 +51,7 @@ android {
         }
     }
 }
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android
@@ -63,9 +63,9 @@ dependencies {
     compile "com.android.support:gridlayout-v7:$rootProject.supportLibrary"
     compile "com.google.android.gms:play-services-auth:$rootProject.playServices"
 
-    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
-        transitive = true
-    }
+//    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
+//        transitive = true
+//    }
 
     // FireBase
     compile "com.google.firebase:firebase-auth:$rootProject.firebase"
@@ -96,10 +96,10 @@ dependencies {
     compile "com.squareup.picasso:picasso:$rootProject.picasso"
     compile "com.getbase:floatingactionbutton:$rootProject.fab"
     compile "com.jakewharton:butterknife:$rootProject.butterknife"
-    apt "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
-    compile 'com.facebook.android:facebook-android-sdk:4.14.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    compile 'com.android.support:support-v4:25.3.0'
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
+    compile "com.android.support:support-v4:$rootProject.supportLibrary"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    compile 'com.facebook.android:facebook-android-sdk:4.22.1'
 }
 
 /*
