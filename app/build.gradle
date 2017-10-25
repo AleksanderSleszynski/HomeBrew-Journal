@@ -63,6 +63,7 @@ android {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
         }
     }
+    buildToolsVersion '26.0.2'
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -75,7 +76,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibrary"
     compile "com.android.support:gridlayout-v7:$rootProject.supportLibrary"
     compile "com.google.android.gms:play-services-auth:$rootProject.playServices"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
         transitive = true
     }
